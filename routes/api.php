@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GuestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,14 @@ use App\Http\Controllers\AdminController;
 Route::get('/users',function (Request $request) {
     return User::all();
 });
+
+
+//Guest Routes:Register Should be protected
+Route::post('/guests/register', [GuestController::class, 'register']);
+
+Route::post('/guests/login', [GuestController::class, 'login']);
+
+Route::get('/room/{roomId}/details', function () {
+    // Route accessible only to guests linked to the specified room: using the middleware check.guestAcess
+})->middleware('auth:guests', 'check.guestAcess');
+
