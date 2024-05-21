@@ -18,4 +18,8 @@ class Room extends Model
     {
         return $this->belongsToMany(User::class, 'admin_room');
     }
+    public function guests()
+    {
+        return $this->belongsToMany(User::class, 'guest_rooms');
+    }
 }
