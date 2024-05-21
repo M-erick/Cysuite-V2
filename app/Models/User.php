@@ -52,4 +52,21 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Room::class, 'guest_rooms');
     }
+
+    //  a user can have many issues .
+    public function issues()
+    {
+        return $this->hasMany(Issue::class);
+    }
+
+    // Rating relationships
+    public function givenRatings()
+    {
+        return $this->hasMany(Rating::class, 'user_id');
+    }
+
+    public function receivedRatings()
+    {
+        return $this->hasMany(Rating::class, 'rated_user_id');
+    }
 }
