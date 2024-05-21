@@ -53,7 +53,7 @@ class IssueController extends Controller
             'status' => 'required|string',
         ]);
 
-        $issue = Issue::findOrFail($id);
+        $issue = Issue::find($id);
         $issue->update($request->all());
 
         return response()->json($issue, 200);
