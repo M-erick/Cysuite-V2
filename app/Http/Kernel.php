@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
 
         // ChechSupervisor middleware
         'check.supervisor' => \App\Http\Middleware\CheckSupervisor::class,
+        'check.guestAcess' =>\App\Http\Middleware\CheckGuestAccess::class,
     ];
 }
