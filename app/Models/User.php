@@ -48,4 +48,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Room::class, 'admin_room');
     }
+    public function guestRooms()
+    {
+        return $this->belongsToMany(Room::class, 'guest_rooms');
+    }
 }
