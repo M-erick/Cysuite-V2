@@ -11,9 +11,9 @@
             >
                 <div
                     class="absolute top-0 w-full h-full bg-center bg-cover"
-                    style="
-                        background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80');
-                    "
+                    :style="{
+          backgroundImage: `url(${getImageUrl(room.image)})`
+        }"
                 >
                     <span
                         id="blackOverlay"
@@ -27,10 +27,10 @@
                         >
                             <div class="pr-12">
                                 <h1 class="text-white font-semibold text-5xl">
-                                    Your story starts with us.
+                                    {{ room.name }}
                                 </h1>
                                 <p class="mt-4 text-lg text-blueGray-200">
-                                    Best ranked rooms
+                                    {{room.type}}
                                 </p>
                             </div>
                         </div>
@@ -70,15 +70,9 @@
                         <div class="flex items-center">
                             <div class="flex flex-1">
                                 <div class="">
-                                    <p class="text-3xl">Single Rooms</p>
+                                    <p class="text-3xl">  {{ room.name }}</p>
                                     <p class="text-sm font-semibold">
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Numquam dolorum
-                                        repellendus aliquid ab provident cum ea,
-                                        hic maiores autem, ducimus voluptates,
-                                        officia necessitatibus exercitationem
-                                        incidunt cupiditate ex natus facilis
-                                        enim?
+                                       {{room.description}}
                                     </p>
                                 </div>
                             </div>
@@ -93,7 +87,7 @@
                         <div class="relative h-full w-full">
                             <img
                                 class="h-full w-full object-cover"
-                                src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                :src="getImageUrl(room.image)"
                                 alt=""
                             />
                         </div>
@@ -304,7 +298,14 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-
+const props = defineProps({
+  room: Object,
+});
+// to get the image :try this logic
+function getImageUrl(imagePath) {
+    // i'll create a tenary statement if-else
+  return imagePath ? `/storage/${imagePath}` : 'https://via.placeholder.com/150';
+}
 </script>
 
 <style></style>
