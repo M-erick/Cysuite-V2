@@ -1,12 +1,15 @@
 <template>
-  <div>
-    <AuthenticatedLayout>
+<AuthenticatedLayout>
+    <div>
         <!-- component -->
         <link
             rel="stylesheet"
             href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
         />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        />
         <link
             rel="stylesheet"
             href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
@@ -65,10 +68,8 @@
             </div>
             <section class="pb-10 bg-white -mt-24">
                 <article
-                    class="bg-white p-6 mb-6 shadow group transform  hover:shadow-2xl  cursor-pointer border"
+                    class="bg-white p-6 mb-6 shadow group transform hover:shadow-2xl cursor-pointer border"
                 >
-
-
                     <div class="w-full pb-4 mb-auto">
                         <div class="flex items-center">
                             <div class="flex flex-1">
@@ -79,7 +80,6 @@
                                         Lorem ipsum dolor sit amet consectetur
                                         adipisicing elit. Numquam dolorum
                                         repellendus aliquid ab provident cum ea,
-
                                     </p>
                                 </div>
                             </div>
@@ -89,233 +89,360 @@
                     <div></div>
                 </article>
 
-
                 <!-- dummy form details:update on this later DevEric -->
                 <!-- component -->
-                <div class="bg-cover w-full flex justify-center items-center"
-    >
-    <div class="w-full bg-white backdrop-filter backdrop-blur-lg">
-        <div class="w-12/12  rounded-2xl bg-white p-2 bg-opacity-40 ">
+                <div class="bg-cover w-full flex justify-center items-center">
+                    <div
+                        class="w-full bg-white backdrop-filter backdrop-blur-lg"
+                    >
+                        <div
+                            class="w-12/12 rounded-2xl bg-white p-2 bg-opacity-40"
+                        >
+                            <div
+                                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto"
+                            >
+                                <!-- the  article below should be dynamic ,i'll fetch  the data from the database -->
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
-                <!-- the  article below should be dynamic ,i'll fetch  the data from the database -->
+                                <article
+                                    class="bg-white p-6 mb-2 shadow rounded-2xl cursor-pointer border"
+                                >
+                                    <div class="relative rounded-2xl">
+                                        <img
+                                            class="w-full object-cover"
+                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div class="w-full pb-4 mb-auto">
+                                        <div class="flex items-center">
+                                            <div class="flex flex-1">
+                                                <div class="">
+                                                    <p class="text-3xl">
+                                                        Single Rooms
+                                                    </p>
+                                                    <p
+                                                        class="text-sm font-semibold"
+                                                    >
+                                                        Lorem ipsum dolor sit
+                                                        amet consectetur
+                                                        adipisicing elit.
+                                                        Numquam dolorum
+                                                        repellendus aliquid ab
+                                                        provident cum ea, hic
+                                                        maiores autem, ducimus
+                                                        voluptates, officia
+                                                        necessitatibus
+                                                        exercitationem incidunt
+                                                        cupiditate ex natus
+                                                        facilis enim?
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3
+                                        class="flex justify-center items-center font-medium text-xl"
+                                    >
+                                        <!-- modify the href below -->
+                                        <Link
+                                            class="flex justify-center items-center"
+                                            href="/rooms/details"
+                                            rel="invalid url"
+                                        >
+                                            View All
+                                            <i
+                                                class="fa-solid fa-chevron-right pl-2"
+                                            ></i>
+                                        </Link>
+                                    </h3>
+                                    <div></div>
+                                </article>
 
-                <article
-                    class="bg-white  p-6 mb-2 shadow  rounded-2xl cursor-pointer border">
+                                <article
+                                    class="bg-white p-6 mb-2 shadow rounded-2xl cursor-pointer border"
+                                >
+                                    <div class="relative rounded-2xl">
+                                        <img
+                                            class="w-full object-cover"
+                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div class="w-full pb-4 mb-auto">
+                                        <div class="flex items-center">
+                                            <div class="flex flex-1">
+                                                <div class="">
+                                                    <p class="text-3xl">
+                                                        Single Rooms
+                                                    </p>
+                                                    <p
+                                                        class="text-sm font-semibold"
+                                                    >
+                                                        Lorem ipsum dolor sit
+                                                        amet consectetur
+                                                        adipisicing elit.
+                                                        Numquam dolorum
+                                                        repellendus aliquid ab
+                                                        provident cum ea, hic
+                                                        maiores autem, ducimus
+                                                        voluptates, officia
+                                                        necessitatibus
+                                                        exercitationem incidunt
+                                                        cupiditate ex natus
+                                                        facilis enim?
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3
+                                        class="flex justify-center items-center font-medium text-xl"
+                                    >
+                                        <!-- modify the href below -->
+                                        <a
+                                            class="flex justify-center items-center"
+                                            href="/blog/slug"
+                                            rel="invalid url"
+                                        >
+                                            View All
+                                            <i
+                                                class="fa-solid fa-chevron-right pl-2"
+                                            ></i>
+                                        </a>
+                                    </h3>
+                                    <div></div>
+                                </article>
 
-                    <div class="relative  rounded-2xl">
-                        <img class="  w-full object-cover  "
-                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
-                    </div>
-                    <div class=" w-full pb-4 mb-auto">
-                        <div class="flex items-center">
-
-                            <div class="flex flex-1">
-                                <div class="">
-                                    <p class="text-3xl  ">Single Rooms</p>
-                                    <p class="text-sm font-semibold ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam dolorum repellendus aliquid ab provident cum ea, hic maiores autem, ducimus voluptates, officia necessitatibus exercitationem incidunt cupiditate ex natus facilis enim?</p>
-
-                                </div>
+                                <article
+                                    class="bg-white p-6 mb-2 shadow rounded-2xl cursor-pointer border"
+                                >
+                                    <div class="relative rounded-2xl">
+                                        <img
+                                            class="w-full object-cover"
+                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div class="w-full pb-4 mb-auto">
+                                        <div class="flex items-center">
+                                            <div class="flex flex-1">
+                                                <div class="">
+                                                    <p class="text-3xl">
+                                                        Single Rooms
+                                                    </p>
+                                                    <p
+                                                        class="text-sm font-semibold"
+                                                    >
+                                                        Lorem ipsum dolor sit
+                                                        amet consectetur
+                                                        adipisicing elit.
+                                                        Numquam dolorum
+                                                        repellendus aliquid ab
+                                                        provident cum ea, hic
+                                                        maiores autem, ducimus
+                                                        voluptates, officia
+                                                        necessitatibus
+                                                        exercitationem incidunt
+                                                        cupiditate ex natus
+                                                        facilis enim?
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3
+                                        class="flex justify-center items-center font-medium text-xl"
+                                    >
+                                        <!-- modify the href below -->
+                                        <a
+                                            class="flex justify-center items-center"
+                                            href="/blog/slug"
+                                            rel="invalid url"
+                                        >
+                                            View All
+                                            <i
+                                                class="fa-solid fa-chevron-right pl-2"
+                                            ></i>
+                                        </a>
+                                    </h3>
+                                    <div></div>
+                                </article>
+                                <article
+                                    class="bg-white p-6 mb-6 shadow rounded-2xl cursor-pointer border"
+                                >
+                                    <div class="relative rounded-2xl">
+                                        <img
+                                            class="w-full object-cover"
+                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div class="w-full pb-4 mb-auto">
+                                        <div class="flex items-center">
+                                            <div class="flex flex-1">
+                                                <div class="">
+                                                    <p class="text-3xl">
+                                                        Single Rooms
+                                                    </p>
+                                                    <p
+                                                        class="text-sm font-semibold"
+                                                    >
+                                                        Lorem ipsum dolor sit
+                                                        amet consectetur
+                                                        adipisicing elit.
+                                                        Numquam dolorum
+                                                        repellendus aliquid ab
+                                                        provident cum ea, hic
+                                                        maiores autem, ducimus
+                                                        voluptates, officia
+                                                        necessitatibus
+                                                        exercitationem incidunt
+                                                        cupiditate ex natus
+                                                        facilis enim?
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3
+                                        class="flex justify-center items-center font-medium text-xl"
+                                    >
+                                        <!-- modify the href below -->
+                                        <a
+                                            class="flex justify-center items-center"
+                                            href="/blog/slug"
+                                            rel="invalid url"
+                                        >
+                                            View All
+                                            <i
+                                                class="fa-solid fa-chevron-right pl-2"
+                                            ></i>
+                                        </a>
+                                    </h3>
+                                    <div></div>
+                                </article>
+                                <article
+                                    class="bg-white p-6 mb-6 shadow rounded-2xl cursor-pointer border"
+                                >
+                                    <div class="relative rounded-2xl">
+                                        <img
+                                            class="w-full object-cover"
+                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div class="w-full pb-4 mb-auto">
+                                        <div class="flex items-center">
+                                            <div class="flex flex-1">
+                                                <div class="">
+                                                    <p class="text-3xl">
+                                                        Single Rooms
+                                                    </p>
+                                                    <p
+                                                        class="text-sm font-semibold"
+                                                    >
+                                                        Lorem ipsum dolor sit
+                                                        amet consectetur
+                                                        adipisicing elit.
+                                                        Numquam dolorum
+                                                        repellendus aliquid ab
+                                                        provident cum ea, hic
+                                                        maiores autem, ducimus
+                                                        voluptates, officia
+                                                        necessitatibus
+                                                        exercitationem incidunt
+                                                        cupiditate ex natus
+                                                        facilis enim?
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3
+                                        class="flex justify-center items-center font-medium text-xl"
+                                    >
+                                        <!-- modify the href below -->
+                                        <a
+                                            class="flex justify-center items-center"
+                                            href="/blog/slug"
+                                            rel="invalid url"
+                                        >
+                                            View All
+                                            <i
+                                                class="fa-solid fa-chevron-right pl-2"
+                                            ></i>
+                                        </a>
+                                    </h3>
+                                    <div></div>
+                                </article>
+                                <article
+                                    class="bg-white p-6 mb-6 shadow rounded-2xl cursor-pointer border"
+                                >
+                                    <div class="relative rounded-2xl">
+                                        <img
+                                            class="w-full object-cover"
+                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div class="w-full pb-4 mb-auto">
+                                        <div class="flex items-center">
+                                            <div class="flex flex-1">
+                                                <div class="">
+                                                    <p class="text-3xl">
+                                                        Single Rooms
+                                                    </p>
+                                                    <p
+                                                        class="text-sm font-semibold"
+                                                    >
+                                                        Lorem ipsum dolor sit
+                                                        amet consectetur
+                                                        adipisicing elit.
+                                                        Numquam dolorum
+                                                        repellendus aliquid ab
+                                                        provident cum ea, hic
+                                                        maiores autem, ducimus
+                                                        voluptates, officia
+                                                        necessitatibus
+                                                        exercitationem incidunt
+                                                        cupiditate ex natus
+                                                        facilis enim?
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3
+                                        class="flex justify-center items-center font-medium text-xl"
+                                    >
+                                        <!-- modify the href below -->
+                                        <a
+                                            class="flex justify-center items-center"
+                                            href="/blog/slug"
+                                            rel="invalid url"
+                                        >
+                                            View All
+                                            <i
+                                                class="fa-solid fa-chevron-right pl-2"
+                                            ></i>
+                                        </a>
+                                    </h3>
+                                    <div></div>
+                                </article>
                             </div>
                         </div>
-
                     </div>
-                    <h3 class=" flex justify-center items-center font-medium text-xl ">
-
-                        <!-- modify the href below -->
-                        <a class="flex justify-center items-center "
-                            href="/blog/slug"  rel="invalid url">
-                           View All
-                           <i class="fa-solid fa-chevron-right pl-2"></i>
-                        </a>
-                    </h3>
-                    <div>
-                    </div>
-                </article>
-
-                <article
-                    class="bg-white  p-6 mb-2 shadow  rounded-2xl cursor-pointer border">
-
-                    <div class="relative  rounded-2xl">
-                        <img class="  w-full object-cover  "
-                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
-                    </div>
-                    <div class=" w-full pb-4 mb-auto">
-                        <div class="flex items-center">
-
-                            <div class="flex flex-1">
-                                <div class="">
-                                    <p class="text-3xl  ">Single Rooms</p>
-                                    <p class="text-sm font-semibold ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam dolorum repellendus aliquid ab provident cum ea, hic maiores autem, ducimus voluptates, officia necessitatibus exercitationem incidunt cupiditate ex natus facilis enim?</p>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <h3 class=" flex justify-center items-center font-medium text-xl ">
-
-                        <!-- modify the href below -->
-                        <a class="flex justify-center items-center "
-                            href="/blog/slug"  rel="invalid url">
-                           View All
-                           <i class="fa-solid fa-chevron-right pl-2"></i>
-                        </a>
-                    </h3>
-                    <div>
-                    </div>
-                </article>
-
-
-                <article
-                    class="bg-white  p-6 mb-2 shadow  rounded-2xl cursor-pointer border">
-
-                    <div class="relative  rounded-2xl">
-                        <img class="  w-full object-cover  "
-                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
-                    </div>
-                    <div class=" w-full pb-4 mb-auto">
-                        <div class="flex items-center">
-
-                            <div class="flex flex-1">
-                                <div class="">
-                                    <p class="text-3xl  ">Single Rooms</p>
-                                    <p class="text-sm font-semibold ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam dolorum repellendus aliquid ab provident cum ea, hic maiores autem, ducimus voluptates, officia necessitatibus exercitationem incidunt cupiditate ex natus facilis enim?</p>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <h3 class=" flex justify-center items-center font-medium text-xl ">
-
-                        <!-- modify the href below -->
-                        <a class="flex justify-center items-center "
-                            href="/blog/slug"  rel="invalid url">
-                           View All
-                           <i class="fa-solid fa-chevron-right pl-2"></i>
-                        </a>
-                    </h3>
-                    <div>
-                    </div>
-                </article>
-                <article
-                    class="bg-white  p-6 mb-6 shadow  rounded-2xl cursor-pointer border">
-
-                    <div class="relative  rounded-2xl">
-                        <img class="  w-full object-cover  "
-                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
-                    </div>
-                    <div class=" w-full pb-4 mb-auto">
-                        <div class="flex items-center">
-
-                            <div class="flex flex-1">
-                                <div class="">
-                                    <p class="text-3xl  ">Single Rooms</p>
-                                    <p class="text-sm font-semibold ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam dolorum repellendus aliquid ab provident cum ea, hic maiores autem, ducimus voluptates, officia necessitatibus exercitationem incidunt cupiditate ex natus facilis enim?</p>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <h3 class=" flex justify-center items-center font-medium text-xl ">
-
-                        <!-- modify the href below -->
-                        <a class="flex justify-center items-center "
-                            href="/blog/slug"  rel="invalid url">
-                           View All
-                           <i class="fa-solid fa-chevron-right pl-2"></i>
-                        </a>
-                    </h3>
-                    <div>
-                    </div>
-                </article>
-                <article
-                    class="bg-white  p-6 mb-6 shadow  rounded-2xl cursor-pointer border">
-
-                    <div class="relative  rounded-2xl">
-                        <img class="  w-full object-cover  "
-                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
-                    </div>
-                    <div class=" w-full pb-4 mb-auto">
-                        <div class="flex items-center">
-
-                            <div class="flex flex-1">
-                                <div class="">
-                                    <p class="text-3xl  ">Single Rooms</p>
-                                    <p class="text-sm font-semibold ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam dolorum repellendus aliquid ab provident cum ea, hic maiores autem, ducimus voluptates, officia necessitatibus exercitationem incidunt cupiditate ex natus facilis enim?</p>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <h3 class=" flex justify-center items-center font-medium text-xl ">
-
-                        <!-- modify the href below -->
-                        <a class="flex justify-center items-center "
-                            href="/blog/slug"  rel="invalid url">
-                           View All
-                           <i class="fa-solid fa-chevron-right pl-2"></i>
-                        </a>
-                    </h3>
-                    <div>
-                    </div>
-                </article>
-                <article
-                    class="bg-white  p-6 mb-6 shadow  rounded-2xl cursor-pointer border">
-
-                    <div class="relative  rounded-2xl">
-                        <img class="  w-full object-cover  "
-                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
-                    </div>
-                    <div class=" w-full pb-4 mb-auto">
-                        <div class="flex items-center">
-
-                            <div class="flex flex-1">
-                                <div class="">
-                                    <p class="text-3xl  ">Single Rooms</p>
-                                    <p class="text-sm font-semibold ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam dolorum repellendus aliquid ab provident cum ea, hic maiores autem, ducimus voluptates, officia necessitatibus exercitationem incidunt cupiditate ex natus facilis enim?</p>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <h3 class=" flex justify-center items-center font-medium text-xl ">
-
-                        <!-- modify the href below -->
-                        <a class="flex justify-center items-center "
-                            href="/blog/slug"  rel="invalid url">
-                           View All
-                           <i class="fa-solid fa-chevron-right pl-2"></i>
-                        </a>
-                    </h3>
-                    <div>
-                    </div>
-                </article>
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-
+                </div>
             </section>
         </section>
-    </AuthenticatedLayout>
-  </div>
+    </div>
+</AuthenticatedLayout>
 </template>
 
-<script>
-export default {
+<script setup>
+import { Link } from "@inertiajs/vue3";
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
-}
 </script>
 
-<style>
-
-</style>
+<style></style>
