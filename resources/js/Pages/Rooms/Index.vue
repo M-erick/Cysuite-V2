@@ -1,5 +1,6 @@
 <template>
-  <!-- component -->
+    <AuthenticatedLayout>
+
 <div class="relative pt-2 lg:pt-2 ">
 
     <article
@@ -286,12 +287,13 @@
         </div>
     </div>
 </div>
+</AuthenticatedLayout>
 </template>
 
-<script>
-export default {
+<script setup>
+import { Link } from "@inertiajs/vue3";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
-}
 </script>
 
 <style>
