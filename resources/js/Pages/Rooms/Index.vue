@@ -52,7 +52,7 @@
 
                                 <!-- I'll implement the  image part -->
                                 <img class="max-h-80 rounded-2xl w-full object-cover transition-transform duration-300 transform group-hover:scale-105"
-                                    :src="room.imageUrl || 'https://via.placeholder.com/150'" alt="Room Image">
+                                    :src="getImageUrl(room.image) || 'https://via.placeholder.com/150'" alt="Room Image">
                             </div>
                             <div class="w-full pb-4 mb-auto">
                                 <div class="flex items-center">
@@ -68,7 +68,7 @@
                             </div>
                             <h3 class="flex justify-center items-center font-medium text-xl">
                                 <!-- this routes should be dynamic :i'lll add '/rooms/details+ room.id' -->
-                                <Link :href="'/rooms/details'" class="flex justify-center items-center bg-opacity-80 z-10 top-0 left-0 w-full h-full text-black rounded-2xl">
+                                <Link :href="'/rooms/details/'+ room.id" class="flex justify-center items-center bg-opacity-80 z-10 top-0 left-0 w-full h-full text-black rounded-2xl">
                                     View All
                                     <svg class="ml-2 w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
@@ -107,6 +107,12 @@ const fetchRooms = async () => {
         console.error('Error fetching rooms:', error);
     }
 };
+
+// to get the image :try this logic
+function getImageUrl(imagePath) {
+    // i'll create a tenary statement if-else
+  return imagePath ? `/storage/${imagePath}` : 'https://via.placeholder.com/150';
+}
 </script>
 
 <style>
