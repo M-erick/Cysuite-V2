@@ -1,15 +1,9 @@
 <template>
     <AuthenticatedLayout>
         <!-- component -->
-        <link
-            rel="stylesheet"
-            href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
-        />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-        <link
-            rel="stylesheet"
-            href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
-        />
+
+
+
 
         <section class="relative bg-blueGray-50">
             <div
@@ -93,11 +87,10 @@
 
                     <div></div>
                 </article>
-                <div
-                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto"
-                >
-                    <article class="mb-6 shadow">
-                        <div class="relative h-full">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center items-center px-2 mx-auto">
+
+                    <article class="mb-6 shadow ">
+                        <div class="relative h-full w-full">
                             <img
                                 class="h-full w-full object-cover"
                                 src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -156,7 +149,7 @@
                 <!-- component -->
 
 
-                <div class="max-w-2xl m-4">
+                <div class="max-w-2xl m-4 ">
                     <h3 class="text-3xl font-medium mb-3">
                         Additional Services
                     </h3>
