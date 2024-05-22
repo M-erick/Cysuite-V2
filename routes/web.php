@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
+use App\Models\Room;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +44,16 @@ Route::get('/rooms', function () {
     return Inertia::render('Rooms/Index');
 })->name('rooms');
 
-Route::get('/rooms/details', function () {
-    return Inertia::render('Rooms/Details');
+Route::get('/rooms/details',function(){
+    // first fetch the data
+    // $room = Room::findOrFail();
+return Inertia::render('Rooms/Details',[
+    // 'room' => $room,
+]);
 })->name('roomDetails');
+
+Route::get('/roomType', function () {
+    return Inertia::render('Rooms/RoomType');
+})->name('room.type');
+
 require __DIR__.'/auth.php';
