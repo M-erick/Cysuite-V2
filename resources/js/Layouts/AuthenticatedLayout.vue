@@ -27,11 +27,24 @@ const showingNavigationDropdown = ref(false);
                                 </Link>
                             </div>
 
-                            <!-- Navigation Links -->
+                            <!-- Navigation Links:Will update this navigation link  -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
+                                <NavLink :href="route('rooms')" >
+                                   Rooms
+                                </NavLink>
+                                <NavLink :href="route('roomDetails')" >
+                                   Rooms Details
+                                </NavLink>
+
+                                <NavLink :href="route('room.type')" >
+                                   Rooms Type
+                                </NavLink>
+
+
+
                             </div>
                         </div>
 
