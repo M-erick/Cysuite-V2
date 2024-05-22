@@ -40,15 +40,24 @@ Route::middleware('auth')->group(function () {
 Route::get('/admins/create', function () {
     return Inertia::render('Admin/Create');
 })->name('admins.create');
+
+// define room routes
+Route::get('/rooms/create', function () {
+    return Inertia::render('Rooms/Create');
+})->name('rooms.create');
+
+Route::get('/rooms/edit', function () {
+    return Inertia::render('Rooms/Edit');
+})->name('rooms.edit');
 Route::get('/rooms', function () {
     return Inertia::render('Rooms/Index');
 })->name('rooms');
 
-Route::get('/rooms/details',function(){
+Route::get('/rooms/details/{id}',function($id){
     // first fetch the data
-    // $room = Room::findOrFail();
+    $room = Room::find($id);
 return Inertia::render('Rooms/Details',[
-    // 'room' => $room,
+    'room' => $room,
 ]);
 })->name('roomDetails');
 
