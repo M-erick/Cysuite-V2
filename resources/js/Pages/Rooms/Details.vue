@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <AuthenticatedLayout>
         <!-- component -->
         <link
             rel="stylesheet"
@@ -140,10 +140,12 @@
                 </div>
             </section>
         </section>
-    </div>
+    </AuthenticatedLayout>
 </template>
 
 <script>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+
 export default {};
 </script>
 
