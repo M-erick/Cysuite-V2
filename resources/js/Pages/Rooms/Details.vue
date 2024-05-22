@@ -308,10 +308,10 @@
     </AuthenticatedLayout>
 </template>
 
-<script>
+<script setup>
+import { Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
-export default {};
 </script>
 
 <style></style>
