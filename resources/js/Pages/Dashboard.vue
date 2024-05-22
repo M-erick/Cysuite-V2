@@ -1,8 +1,9 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head ,Link} from '@inertiajs/vue3';
 </script>
 
+<!--  When a user logins he is redirected to this page  -->
 <template>
     <Head title="Dashboard" />
 
@@ -16,6 +17,11 @@ import { Head } from '@inertiajs/vue3';
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">You're logged in!</div>
                 </div>
+            </div>
+            <div>
+                <!-- <Link href={route('admins.index')} class="text-blue-500">View Admin List</Link> -->
+                <Link :href="route('admins.create')" class="text-blue-500">Create Admin</Link>
+
             </div>
         </div>
     </AuthenticatedLayout>
