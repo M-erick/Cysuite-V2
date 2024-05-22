@@ -10,7 +10,14 @@ class Room extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'type', 'size', 'price', 'is_occupied',
+        'name',
+         'type',
+         'size',
+         'price',
+          'is_occupied',
+          'description',
+          'image',
+          'capacity',
     ];
 
     // Admin that belongs to the room
