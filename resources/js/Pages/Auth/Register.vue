@@ -11,6 +11,7 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
+    role: 'guest', // am setting guest the default role
 });
 
 const submit = () => {
@@ -25,6 +26,18 @@ const submit = () => {
         <Head title="Register" />
 
         <form @submit.prevent="submit">
+             <!-- Role Selection Dropdown -->
+             <div class="form-group">
+    <label for="role">Role</label>
+    <div class="role-select-container">
+        <select id="role" name="role" class="form-control" v-model="form.role">
+            <option value="guest">Guest</option>
+            <option value="normal_admin">Normal Admin</option>
+            <option value="supervisor_admin">Supervisor Admin</option>
+        </select>
+    </div>
+</div>
+
             <div>
                 <InputLabel for="name" value="Name" />
 
@@ -101,3 +114,14 @@ const submit = () => {
         </form>
     </GuestLayout>
 </template>
+<style scoped>
+.role-select-container {
+    display: inline-block;
+    width: calc(100% - 20px); 
+}
+
+.role-select-container select {
+    width: 100%;
+}
+
+</style>
