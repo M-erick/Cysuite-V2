@@ -35,12 +35,18 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('rooms')" >
                                    Rooms
                                 </NavLink>
-                                <NavLink :href="route('roomDetails')" >
+                                <!-- <NavLink :href="route('roomDetails')" >
                                    Rooms Details
-                                </NavLink>
+                                </NavLink> -->
 
                                 <NavLink :href="route('room.type')" >
                                    Rooms Type
+                                </NavLink>
+
+                                <NavLink :href="route('rooms.create')" >
+                                   Create Room
+                                </NavLink><NavLink :href="route('rooms.edit')" >
+                                  Edit Room
                                 </NavLink>
 
 
