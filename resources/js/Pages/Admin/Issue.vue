@@ -29,6 +29,7 @@
                             </div>
                         </div>
                         <div class="w-full">
+                            <!-- i'll replace this with issue.user.name -->
                             <div class="text-lg font-semibold">{{ issue.user.name  }}</div>
                             <span class="text-gray-500"
                                 >{{
@@ -168,6 +169,7 @@ const fetchIssues = async () => {
         // Fetch user details for each issue
     for (const issue of issues.value) {
       await fetchUser(issue);
+      await fetchResponses(issue);
     }
     } catch (error) {
         console.error("Error fetching issues:", error);
@@ -175,6 +177,7 @@ const fetchIssues = async () => {
 };
 
 //
+// fetch user datails based on user_id
 
 const fetchUser = async (issue) => {
   try {
@@ -193,7 +196,20 @@ const filteredIssues = computed(() => {
     );
 });
 
-// fetch user datails based on user_id
+
+const fetchResponses = async (issueId) => {
+    try {
+        // fetch data for that specific  issue
+        const response = await axios.get(`http://lr-cysuites.test/api/issues/${issueId.id}/responses`);
+        responses.value = response.data;
+        console.log(responses.value);
+    } catch (error) {
+        console.error('Error fetching responses:', error);
+    }
+};
+const selectedIssueResponses = computed(() => {
+    return responses.value.filter(response => response.issue_id === selectedIssueId.value);
+});
 
 
 // const selectedIssueResponses = computed(() => {
