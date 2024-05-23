@@ -48,6 +48,12 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink><NavLink :href="route('rooms.edit')" >
                                   Edit Room
                                 </NavLink>
+                          <NavLink :href="route('panel')" >
+                                 Admin Panel
+                                </NavLink>
+                                <NavLink :href="route('issue')" >
+                                Issue
+                                </NavLink>
 
 
 
