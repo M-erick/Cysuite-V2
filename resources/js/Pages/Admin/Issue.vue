@@ -6,75 +6,45 @@
             <div class="flex flex-row justify-between bg-white">
                 <!-- chat list: i'll loop through issues and response from my issue  and Response table -->
                 <div class="flex flex-col w-2/5 border-r-2 overflow-y-auto">
-                    <!-- search compt -->
+                    <!-- search component -->
                     <div class="border-b-2 py-4 px-2">
-                        <input
-                            type="text"
-                            placeholder="search chatting"
-                            v-model="searchQuery"
-                            class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
-                        />
+                        <input type="text" placeholder="search issue" v-model="searchQuery"
+                            class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full" />
                     </div>
-                    <!-- user list:Fetch the user details from database -->
-                    <div
-                    v-for="issue in filteredIssues"
-                            :key="issue.id"
+                    <!-- user list: Fetch the user details from the database -->
+                    <div v-for="issue in filteredIssues" :key="issue.id"
                         class="flex flex-row py-4 px-2 items-center border-b-2 cursor-pointer"
-
-                        @click="selectIssue(issue)" :class="{ 'selected-issue text-white ': isSelected(issue) }"   >
+                        @click="selectIssue(issue)" :class="{ 'selected-issue text-white ': isSelected(issue) }">
                         <div class="w-1/4 mr-2">
                             <div
-                                class="h-16 w-16 rounded-full border-2 border-gray-300 flex items-center justify-center"
-                            >
-                                <i class="fa-solid fa-user text-4xl"></i>
+                                class="h-12 md:h-16 w-12 md:w-16 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                                <i class="fa-solid fa-user text-2xl md:text-4xl"></i>
                             </div>
                         </div>
                         <div class="w-full">
-                            <!-- i'll replace this with issue.user.name -->
-                            <div class="text-lg font-semibold">{{ issue.title  }}</div>
-                            <span class=""
-                                >{{
-                                    issue.description
-                                }}</span
-                            >
+                            <div class="text-lg font-semibold">{{ issue.title }}</div>
+                            <span>{{ issue.description }}</span>
                         </div>
                     </div>
-                    <!-- incase i decide to implement images instead of default fa-users i'll usecode below -->
-                    <!-- <div class="flex flex-row py-4 px-2 items-center border-b-2">
-                        <div class="w-1/4">
-                            <img src="https://source.unsplash.com/otT2199XwI8/600x600"
-                                class="object-cover h-12 w-12 rounded-full" alt="" />
-                        </div>
-                        <div class="w-full">
-                            <div class="text-lg font-semibold">Chelsea</div>
-                            <span class="text-gray-500">Hi,i have an issue with WIFI connections</span>
-                        </div>
-                    </div> -->
-
-
-                    <!-- an active chat will have the setting border-b-2 border-l-4 border-green-900 -->
-
-
-
-
                 </div>
+
 
                 <!-- end chat list -->
                 <!-- message -->
                 <div class="w-full px-5 flex flex-col justify-between">
                     <div v-if="selectedIssue" class="flex flex-col mt-5">
-                        <div v-for="response in responses" :key="response.id" :class="{'justify-end': response.user_id === currentUser.id, 'justify-start': response.user_id !== currentUser.id}" class="flex mb-4">
+                        <div v-for="response in responses" :key="response.id"
+                            :class="{'justify-end': response.user_id === currentUser.id, 'justify-start': response.user_id !== currentUser.id}"
+                            class="flex mb-4">
 
 
-                           <span>Admin@{{ response.user_id }}</span>
+                            <span>Admin@{{ response.user_id }}</span>
                             <div
-                                class="relative mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-                            >
-                            {{ response.response_text }}
+                                class="relative mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
+                                {{ response.response_text }}
                                 <span
-                                    class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full"
-                                    >{{ formatTimestamp(response.created_at) }}</span
-                                >
+                                    class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full">{{
+                                    formatTimestamp(response.created_at) }}</span>
                             </div>
                         </div>
 
@@ -87,11 +57,8 @@
                     </div>
                     <div class="py-5">
                         <!-- in this input form: i'll pass the issue to the database -->
-                        <input
-                            class="w-full bg-gray-300 py-5 px-3 rounded-xl"
-                            type="text"
-                            placeholder="type your message here..."
-                        />
+                        <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="text"
+                            placeholder="type your message here..." />
                     </div>
                 </div>
             </div>
@@ -121,7 +88,7 @@ onMounted(async () => {
 
 const fetchIssues = async () => {
     try {
-        const response = await axios.get("http://lr-cysuites.test/api/issues");
+        const response = await axios.get("/api/issues");
         issues.value = response.data;
         console.log("Fetched Issues:", issues.value);
 
@@ -136,7 +103,7 @@ const fetchIssues = async () => {
 
 const fetchUser = async (issue) => {
     try {
-        const response = await axios.get(`http://lr-cysuites.test/api/users/${issue.user_id}`);
+        const response = await axios.get(`/api/users/${issue.user_id}`);
         issue.user = response.data;
         console.log(`Fetched User for Issue ${issue.id}:`, issue.user);
     } catch (error) {
@@ -146,7 +113,7 @@ const fetchUser = async (issue) => {
 
 const fetchResponses = async (issueId) => {
     try {
-        const response = await axios.get(`http://lr-cysuites.test/api/issues/${issueId}/responses`);
+        const response = await axios.get(`/api/issues/${issueId}/responses`);
         responses.value = response.data;
         // console.log(`Fetched Responses for Issue ${issueId}:`, responses.value);
     } catch (error) {
@@ -167,13 +134,15 @@ const selectedIssueResponses = computed(() => {
 const selectIssue = async (issue) => {
     selectedIssue.value = issue;
     selectedIssueId.value = issue.id;
-    // console.log("Selected Issue:", selectedIssue.value);
+    // console.log("Selected Issue:");
     await fetchResponses(issue.id);
 };
 
 const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
-    return `${date.getHours()}:${date.getMinutes()}`;
+    // Format the date to display time, day, and year:reformat the date structure
+    const options = { hour: 'numeric', minute: 'numeric', day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleString(undefined, options);
 };
 
 //styling
