@@ -19,8 +19,9 @@
                     <div
                     v-for="issue in filteredIssues"
                             :key="issue.id"
-                        class="flex flex-row py-4 px-2 items-center border-b-2"
-                    >
+                        class="flex flex-row py-4 px-2 items-center border-b-2 cursor-pointer"
+
+                        @click="selectIssue(issue)" :class="{ 'selected-issue text-white ': isSelected(issue) }"   >
                         <div class="w-1/4 mr-2">
                             <div
                                 class="h-16 w-16 rounded-full border-2 border-gray-300 flex items-center justify-center"
@@ -30,8 +31,8 @@
                         </div>
                         <div class="w-full">
                             <!-- i'll replace this with issue.user.name -->
-                            <div class="text-lg font-semibold">{{ issue.user.name  }}</div>
-                            <span class="text-gray-500"
+                            <div class="text-lg font-semibold">{{ issue.title  }}</div>
+                            <span class=""
                                 >{{
                                     issue.description
                                 }}</span
@@ -61,70 +62,28 @@
                 <!-- end chat list -->
                 <!-- message -->
                 <div class="w-full px-5 flex flex-col justify-between">
-                    <div class="flex flex-col mt-5">
-                        <div class="flex justify-end mb-4">
+                    <div v-if="selectedIssue" class="flex flex-col mt-5">
+                        <div v-for="response in responses" :key="response.id" :class="{'justify-end': response.user_id === currentUser.id, 'justify-start': response.user_id !== currentUser.id}" class="flex mb-4">
+
+
+                           <span>Admin@{{ response.user_id }}</span>
                             <div
                                 class="relative mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
                             >
-                                Am still waiting for new sheet I requested
+                            {{ response.response_text }}
                                 <span
                                     class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full"
-                                    >12:45 PM</span
+                                    >{{ formatTimestamp(response.created_at) }}</span
                                 >
                             </div>
                         </div>
 
                         <!-- response part:loop through the response  and replies-->
-                        <div class="flex justify-start mb-4 font-semibold">
-                            Admin@Username
-                            <div
-                                class="relative ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
-                            >
-                                Hi Frank,am working on this
-                                <span
-                                    class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full"
-                                    >12:45 PM</span
-                                >
-                            </div>
-                        </div>
-                        <div class="flex justify-end mb-4">
-                            <div>
-                                <div
-                                    class="relative mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-                                >
-                                    Okay.i'll be in my room from 6pm today
-                                    evening
-                                    <span
-                                        class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full"
-                                        >12:45 PM</span
-                                    >
-                                </div>
 
-                                <div
-                                    class="relative mt-4 mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
-                                >
-                                    Something else.What was the room password
-                                    <span
-                                        class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full"
-                                        >12:45 PM</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex justify-start mb-4">
-                            <span class="font-semibold"> Admin@User</span>
 
-                            <div
-                                class="relative ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
-                            >
-                                Wifi name :CysuiteF33 and password is
-                                @CysuiteCorp2021.
-                                <span
-                                    class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full"
-                                    >12:45 PM</span
-                                >
-                            </div>
-                        </div>
+                    </div>
+                    <div v-else class="flex justify-center items-center h-full">
+                        <p class="text-gray-500">Select an issue to view details</p>
                     </div>
                     <div class="py-5">
                         <!-- in this input form: i'll pass the issue to the database -->
@@ -141,20 +100,20 @@
 </template>
 
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { ref, onMounted, computed } from "vue";
-// endpoint to use
-// 1.endpoint to implement the search functionality
-//2.endpoint to post the response or issue to the database
+import axios from 'axios';
+
+const { props } = usePage();
+const currentUser = props.auth.user;
 
 const issues = ref([]);
 const responses = ref([]);
 const searchQuery = ref("");
 const selectedIssueId = ref(null);
 const newMessage = ref("");
-// dummy data
-const currentUser = { id: 1, name: "Frank" };
+const selectedIssue = ref(null);
 
 onMounted(async () => {
     await fetchIssues();
@@ -164,57 +123,70 @@ const fetchIssues = async () => {
     try {
         const response = await axios.get("http://lr-cysuites.test/api/issues");
         issues.value = response.data;
-        console.log(issues.value);
+        console.log("Fetched Issues:", issues.value);
 
         // Fetch user details for each issue
-    for (const issue of issues.value) {
-      await fetchUser(issue);
-      await fetchResponses(issue);
-    }
+        for (const issue of issues.value) {
+            await fetchUser(issue);
+        }
     } catch (error) {
         console.error("Error fetching issues:", error);
     }
 };
 
-//
-// fetch user datails based on user_id
-
 const fetchUser = async (issue) => {
-  try {
-    const response = await axios.get(`http://lr-cysuites.test/api/users/${issue.user_id}`);
-    issue.user = response.data;
-  } catch (error) {
-    console.error('Error fetching user:', error);
-  }
+    try {
+        const response = await axios.get(`http://lr-cysuites.test/api/users/${issue.user_id}`);
+        issue.user = response.data;
+        console.log(`Fetched User for Issue ${issue.id}:`, issue.user);
+    } catch (error) {
+        console.error('Error fetching user:', error);
+    }
 };
-// filter through the fetched issues:errors
-const filteredIssues = computed(() => {
-    return issues.value.filter((issue) =>
-        issue.description
-            .toLowerCase()
-            .includes(searchQuery.value.toLowerCase())
-    );
-});
-
 
 const fetchResponses = async (issueId) => {
     try {
-        // fetch data for that specific  issue
-        const response = await axios.get(`http://lr-cysuites.test/api/issues/${issueId.id}/responses`);
+        const response = await axios.get(`http://lr-cysuites.test/api/issues/${issueId}/responses`);
         responses.value = response.data;
-        console.log(responses.value);
+        // console.log(`Fetched Responses for Issue ${issueId}:`, responses.value);
     } catch (error) {
         console.error('Error fetching responses:', error);
     }
 };
+
+const filteredIssues = computed(() => {
+    return issues.value.filter((issue) =>
+        issue.description.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+});
+
 const selectedIssueResponses = computed(() => {
     return responses.value.filter(response => response.issue_id === selectedIssueId.value);
 });
 
+const selectIssue = async (issue) => {
+    selectedIssue.value = issue;
+    selectedIssueId.value = issue.id;
+    // console.log("Selected Issue:", selectedIssue.value);
+    await fetchResponses(issue.id);
+};
 
-// const selectedIssueResponses = computed(() => {
-//     return responses.value.filter(response => response.issue_id === selectedIssueId.value);
-// });
+const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    return `${date.getHours()}:${date.getMinutes()}`;
+};
+
+//styling
+const isSelected = (issue) => {
+    return issue.id === selectedIssueId.value;
+};
 </script>
 
-<style></style>
+<style scoped>
+.selected-issue {
+        background-color: #046a5b;
+        border-bottom-width: 2px;
+        border-left-width: 2px;
+        border-color: #046a5b;
+    }
+</style>
