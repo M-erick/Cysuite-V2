@@ -56,9 +56,12 @@
                         <p class="text-gray-500">Select an issue to view details</p>
                     </div>
                     <div class="py-5">
-                        <!-- in this input form: i'll pass the issue to the database -->
-                        <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="text"
-                            placeholder="type your message here..." />
+                        <form @submit.prevent="submitResponse">
+                            <input v-model="newResponse" class="w-full bg-white py-5 px-3 rounded-xl" type="text"
+                                placeholder="Type your message here..." />
+                            <!-- Button to submit the response -->
+                            <button type="submit" class=" text-white py-2 px-4 rounded mt-3">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -81,6 +84,9 @@ const searchQuery = ref("");
 const selectedIssueId = ref(null);
 const newMessage = ref("");
 const selectedIssue = ref(null);
+
+// data to post
+const newResponse = ref("");
 
 onMounted(async () => {
     await fetchIssues();
@@ -149,6 +155,23 @@ const formatTimestamp = (timestamp) => {
 const isSelected = (issue) => {
     return issue.id === selectedIssueId.value;
 };
+
+
+// method to handle the POST
+const submitResponse = async () => {
+    try {
+
+        await axios.post(`/api/issues/${selectedIssue.value.id}/responses`, {
+            response_text: newResponse.value,
+            user_id: currentUser.id,
+            issue_id: selectedIssue.value.id
+        });
+        newResponse.value = "";
+        await fetchResponses(selectedIssue.value.id);
+    } catch (error) {
+        console.error('Error submitting response:', error);
+    }
+};
 </script>
 
 <style scoped>
@@ -157,5 +180,9 @@ const isSelected = (issue) => {
         border-bottom-width: 2px;
         border-left-width: 2px;
         border-color: #046a5b;
+    }
+    button {
+        background-color: #046a5b;
+        
     }
 </style>
