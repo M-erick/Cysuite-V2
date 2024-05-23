@@ -7,9 +7,8 @@
                 <!-- chat list: i'll loop through issues and response from my issue  and Response table -->
                 <div class="flex flex-col w-2/5 border-r-2 overflow-y-auto">
                     <!-- search component -->
-                    <div class="border-b-2 py-4 px-2">
-                        <input type="text" placeholder="search issue" v-model="searchQuery"
-                            class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full" />
+                    <div class="border-b-2 py-4 px-2" style="background-color:#046a5b ;">
+                        <span  class="text-white">Issue Page</span>
                     </div>
                     <!-- user list: Fetch the user details from the database -->
                     <div v-for="issue in filteredIssues" :key="issue.id"
@@ -183,6 +182,6 @@ const submitResponse = async () => {
     }
     button {
         background-color: #046a5b;
-        
+
     }
 </style>
