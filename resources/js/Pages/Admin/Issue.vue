@@ -11,12 +11,14 @@
                         <input
                             type="text"
                             placeholder="search chatting"
+                            v-model="searchQuery"
                             class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
                         />
                     </div>
-                    <!-- end search compt -->
                     <!-- user list:Fetch the user details from database -->
                     <div
+                    v-for="issue in filteredIssues"
+                            :key="issue.id"
                         class="flex flex-row py-4 px-2 items-center border-b-2"
                     >
                         <div class="w-1/4 mr-2">
@@ -27,10 +29,11 @@
                             </div>
                         </div>
                         <div class="w-full">
-                            <div class="text-lg font-semibold">Ian</div>
+                            <div class="text-lg font-semibold">{{ issue.title }}</div>
                             <span class="text-gray-500"
-                                >Am still waiting for new sheet i
-                                requested</span
+                                >{{
+                                    issue.description
+                                }}</span
                             >
                         </div>
                     </div>
@@ -46,80 +49,12 @@
                         </div>
                     </div> -->
 
-                    <div
-                        class="flex flex-row py-4 px-2 items-center border-b-2"
-                    >
-                        <div class="w-1/4 mr-2">
-                            <div
-                                class="h-16 w-16 rounded-full border-2 border-gray-300 flex items-center justify-center"
-                            >
-                                <i class="fa-solid fa-user text-4xl"></i>
-                            </div>
-                        </div>
-                        <div class="w-full">
-                            <div class="text-lg font-semibold">Chelsea</div>
-                            <span class="text-gray-500"
-                                >Am still waiting for new sheet i
-                                requested</span
-                            >
-                        </div>
-                    </div>
-                    <!-- an active chat will have the setting border-b-2 border-l-4 border-green-900 -->
-                    <div
-                        class="flex flex-row py-4 px-2 items-center border-b-2 border-l-4 border-green-900"
-                    >
-                        <div class="w-1/4 mr-2">
-                            <div
-                                class="h-16 w-16 rounded-full border-2 border-gray-300 flex items-center justify-center"
-                            >
-                                <i class="fa-solid fa-user text-4xl"></i>
-                            </div>
-                        </div>
-                        <div class="w-full">
-                            <div class="text-lg font-semibold">Frank</div>
-                            <span class="text-gray-500"
-                                >Am still waiting for new sheet i
-                                requested</span
-                            >
-                        </div>
-                    </div>
 
-                    <div
-                        class="flex flex-row py-4 px-2 items-center border-b-2"
-                    >
-                        <div class="w-1/4 mr-2">
-                            <div
-                                class="h-16 w-16 rounded-full border-2 border-gray-300 flex items-center justify-center"
-                            >
-                                <i class="fa-solid fa-user text-4xl"></i>
-                            </div>
-                        </div>
-                        <div class="w-full">
-                            <div class="text-lg font-semibold">Terry</div>
-                            <span class="text-gray-500"
-                                >Am still waiting for new sheet i
-                                requested</span
-                            >
-                        </div>
-                    </div>
-                    <div
-                        class="flex flex-row py-4 px-2 items-center border-b-2"
-                    >
-                        <div class="w-1/4 mr-2">
-                            <div
-                                class="h-16 w-16 rounded-full border-2 border-gray-300 flex items-center justify-center"
-                            >
-                                <i class="fa-solid fa-user text-4xl"></i>
-                            </div>
-                        </div>
-                        <div class="w-full">
-                            <div class="text-lg font-semibold">Varis</div>
-                            <span class="text-gray-500"
-                                >Am still waiting for new sheet i
-                                requested</span
-                            >
-                        </div>
-                    </div>
+                    <!-- an active chat will have the setting border-b-2 border-l-4 border-green-900 -->
+                   
+
+
+
                 </div>
 
                 <!-- end chat list -->
@@ -142,37 +77,36 @@
                         <div class="flex justify-start mb-4 font-semibold">
                             Admin@Username
                             <div
-                                class=" relative ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
+                                class="relative ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
                             >
                                 Hi Frank,am working on this
                                 <span
                                     class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full"
                                     >12:45 PM</span
                                 >
-
                             </div>
                         </div>
                         <div class="flex justify-end mb-4">
                             <div>
                                 <div
-                                    class=" relative mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
+                                    class="relative mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
                                 >
                                     Okay.i'll be in my room from 6pm today
                                     evening
                                     <span
-                                    class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full"
-                                    >12:45 PM</span
-                                >
+                                        class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full"
+                                        >12:45 PM</span
+                                    >
                                 </div>
 
                                 <div
-                                    class=" relative mt-4 mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
+                                    class="relative mt-4 mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white"
                                 >
                                     Something else.What was the room password
                                     <span
-                                    class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full"
-                                    >12:45 PM</span
-                                >
+                                        class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full"
+                                        >12:45 PM</span
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -180,7 +114,7 @@
                             <span class="font-semibold"> Admin@User</span>
 
                             <div
-                                class=" relative ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
+                                class="relative ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"
                             >
                                 Wifi name :CysuiteF33 and password is
                                 @CysuiteCorp2021.
@@ -208,11 +142,44 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-
+import { ref, onMounted, computed } from "vue";
 // endpoint to use
 // 1.endpoint to implement the search functionality
 //2.endpoint to post the response or issue to the database
 
+const issues = ref([]);
+const responses = ref([]);
+const searchQuery = ref("");
+const selectedIssueId = ref(null);
+const newMessage = ref("");
+// dummy data
+const currentUser = { id: 1, name: "Frank" };
+
+onMounted(async () => {
+    await fetchIssues();
+});
+
+const fetchIssues = async () => {
+    try {
+        const response = await axios.get("http://lr-cysuites.test/api/issues");
+        issues.value = response.data;
+        console.log(issues.value);
+    } catch (error) {
+        console.error("Error fetching issues:", error);
+    }
+};
+// filter through the fetched issues:errors
+const filteredIssues = computed(() => {
+    return issues.value.filter((issue) =>
+        issue.description
+            .toLowerCase()
+            .includes(searchQuery.value.toLowerCase())
+    );
+});
+
+// const selectedIssueResponses = computed(() => {
+//     return responses.value.filter(response => response.issue_id === selectedIssueId.value);
+// });
 </script>
 
 <style></style>
