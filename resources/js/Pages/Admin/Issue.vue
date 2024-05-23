@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="w-full">
-                            <div class="text-lg font-semibold">{{ issue.title }}</div>
+                            <div class="text-lg font-semibold">{{ issue.user.name  }}</div>
                             <span class="text-gray-500"
                                 >{{
                                     issue.description
@@ -51,7 +51,7 @@
 
 
                     <!-- an active chat will have the setting border-b-2 border-l-4 border-green-900 -->
-                   
+
 
 
 
@@ -164,9 +164,25 @@ const fetchIssues = async () => {
         const response = await axios.get("http://lr-cysuites.test/api/issues");
         issues.value = response.data;
         console.log(issues.value);
+
+        // Fetch user details for each issue
+    for (const issue of issues.value) {
+      await fetchUser(issue);
+    }
     } catch (error) {
         console.error("Error fetching issues:", error);
     }
+};
+
+//
+
+const fetchUser = async (issue) => {
+  try {
+    const response = await axios.get(`http://lr-cysuites.test/api/users/${issue.user_id}`);
+    issue.user = response.data;
+  } catch (error) {
+    console.error('Error fetching user:', error);
+  }
 };
 // filter through the fetched issues:errors
 const filteredIssues = computed(() => {
@@ -176,6 +192,9 @@ const filteredIssues = computed(() => {
             .includes(searchQuery.value.toLowerCase())
     );
 });
+
+// fetch user datails based on user_id
+
 
 // const selectedIssueResponses = computed(() => {
 //     return responses.value.filter(response => response.issue_id === selectedIssueId.value);
