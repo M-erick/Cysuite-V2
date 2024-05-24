@@ -65,4 +65,13 @@ Route::get('/roomType', function () {
     return Inertia::render('Rooms/RoomType');
 })->name('room.type');
 
+
+// admin Panel
+Route::get('/adminPanel', function () {
+    return Inertia::render('Admin/Panel');
+})->name('panel');
+
+Route::get('/issue', function () {
+    return Inertia::render('Admin/Response');
+})->name('issue');
 require __DIR__.'/auth.php';
