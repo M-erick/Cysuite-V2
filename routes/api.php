@@ -9,6 +9,7 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ResponseController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,10 +36,13 @@ use App\Http\Controllers\ResponseController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::get('/users',function (Request $request) {
-    return User::all();
-});
+// Route::get('/users',function (Request $request) {
+//     return User::all();
+// });
 
+// fetch user details:dummy routes will update this
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/{id}', [UserController::class, 'show']);
 
 //Guest Routes:Register Should be protected
 Route::post('/guests/register', [GuestController::class, 'register']);
@@ -65,14 +69,10 @@ Route::get('/room/{roomId}/details', function () {
 
     // Route to create a new issue
     Route::post('/issues', [IssueController::class, 'store'])->name('issues.store');
-
     // Route to view a specific issue
     Route::get('/issues/{id}', [IssueController::class, 'show'])->name('issues.show');
-
     // Route to update an existing issue
     Route::put('/issues/{id}', [IssueController::class, 'update'])->name('issues.update');
-
-    // Route to delete an issue
     Route::delete('/issues/{id}', [IssueController::class, 'destroy'])->name('issues.destroy');
 
 // Routes for responses
