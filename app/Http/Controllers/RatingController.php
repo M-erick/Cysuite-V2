@@ -23,37 +23,41 @@ class RatingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+
+     public function store(Request $request)
     {
-        //
         try {
             $request->validate([
+                'user_id' => 'required|exists:users,id',
                 'rated_user_id' => 'required|exists:users,id',
-
-                // rating scale from 1 to 5
                 'rating' => 'required|integer|between:1,5',
             ]);
 
             $ratedUser = User::find($request->input('rated_user_id'));
 
-            if ($ratedUser->role !== 'admin') {
-                return response()->json(['message' => 'The rated user must be an admin'], 422);
+            //  the role IDs for normal_admin and supervisor_admin are 2 and 3 respectively
+            $allowedRoleIds = [2, 3];
+
+
+            if (!in_array($ratedUser->role_id, $allowedRoleIds)) {
+                return response()->json(['message' => 'The rated user must be either a normal admin or a supervisor admin'], 422);
             }
 
             $rating = new Rating();
-            $rating->user_id = Auth::id();
+            $rating->user_id = $request->input('user_id');
             $rating->rated_user_id = $request->input('rated_user_id');
             $rating->rating = $request->input('rating');
             $rating->save();
 
             return response()->json($rating, 201);
         } catch (ValidationException $e) {
-            return response()->json(['message' => $e->getMessage()], 422);
+            return response()->json(['message' => $e->getMessage(), 'errors' => $e->errors()], 422);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Failed to create rating'], 500);
+            return response()->json(['message' => 'Failed to create rating', 'error' => $e->getMessage()], 500);
         }
-
     }
+
+
 
     /**
      * Display the specified resource.
@@ -113,6 +117,6 @@ class RatingController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to delete rating'], 500);
         }
-    
+
     }
 }
