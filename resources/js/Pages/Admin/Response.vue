@@ -1,9 +1,9 @@
 <template>
     <AuthenticatedLayout>
         <!-- try to implement this as a messaging system:facebook feeds -->
-        <div class="container mx-auto shadow-lg rounded-lg">
+        <div class="container mx-auto shadow-lg rounded-lg h-screen">
             <!-- Chatting -->
-            <div class="flex flex-row justify-between bg-white">
+            <div class="flex flex-row justify-between bg-white h-full">
                 <!-- chat list: i'll loop through issues and response from my issue  and Response table -->
                 <div class="flex flex-col w-2/5 border-r-2 overflow-y-auto">
                     <!-- search component -->
