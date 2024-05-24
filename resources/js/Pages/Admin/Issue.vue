@@ -69,107 +69,64 @@
 </template>
 
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed } from 'vue';
+import { useStore } from 'vuex';
+import { usePage } from '@inertiajs/vue3';
 import axios from 'axios';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
+const store = useStore();
 const { props } = usePage();
 const currentUser = props.auth.user;
 
-const issues = ref([]);
-const responses = ref([]);
-const searchQuery = ref("");
+const searchQuery = ref('');
 const selectedIssueId = ref(null);
-const newMessage = ref("");
-const selectedIssue = ref(null);
+const newResponse = ref('');
 
-// data to post
-const newResponse = ref("");
+// Computed properties
+const issues = computed(() => store.state.issues.issues);
+const selectedIssue = computed(() => store.state.issues.selectedIssue);
+const responses = computed(() => store.state.issues.responses);
 
-onMounted(async () => {
-    await fetchIssues();
+// Fetch issues on component mount
+onMounted(() => {
+  store.dispatch('issues/fetchIssues');
 });
-
-const fetchIssues = async () => {
-    try {
-        const response = await axios.get("/api/issues");
-        issues.value = response.data;
-        console.log("Fetched Issues:", issues.value);
-
-        // Fetch user details for each issue
-        for (const issue of issues.value) {
-            await fetchUser(issue);
-        }
-    } catch (error) {
-        console.error("Error fetching issues:", error);
-    }
-};
-
-const fetchUser = async (issue) => {
-    try {
-        const response = await axios.get(`/api/users/${issue.user_id}`);
-        issue.user = response.data;
-        console.log(`Fetched User for Issue ${issue.id}:`, issue.user);
-    } catch (error) {
-        console.error('Error fetching user:', error);
-    }
-};
-
-const fetchResponses = async (issueId) => {
-    try {
-        const response = await axios.get(`/api/issues/${issueId}/responses`);
-        responses.value = response.data;
-        // console.log(`Fetched Responses for Issue ${issueId}:`, responses.value);
-    } catch (error) {
-        console.error('Error fetching responses:', error);
-    }
-};
 
 const filteredIssues = computed(() => {
-    return issues.value.filter((issue) =>
-        issue.description.toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
-});
-
-const selectedIssueResponses = computed(() => {
-    return responses.value.filter(response => response.issue_id === selectedIssueId.value);
+  return issues.value.filter((issue) =>
+    issue.description.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
 });
 
 const selectIssue = async (issue) => {
-    selectedIssue.value = issue;
-    selectedIssueId.value = issue.id;
-    // console.log("Selected Issue:");
-    await fetchResponses(issue.id);
+  store.commit('issues/setSelectedIssue', issue);
+  selectedIssueId.value = issue.id;
+  await store.dispatch('issues/fetchIssueResponses', issue.id);
 };
 
 const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    // Format the date to display time, day, and year:reformat the date structure
-    const options = { hour: 'numeric', minute: 'numeric', day: 'numeric', month: 'long', year: 'numeric' };
-    return date.toLocaleString(undefined, options);
+  const date = new Date(timestamp);
+  const options = { hour: 'numeric', minute: 'numeric', day: 'numeric', month: 'long', year: 'numeric' };
+  return date.toLocaleString(undefined, options);
 };
 
-//styling
 const isSelected = (issue) => {
-    return issue.id === selectedIssueId.value;
+  return issue.id === selectedIssueId.value;
 };
 
-
-// method to handle the POST
 const submitResponse = async () => {
-    try {
-
-        await axios.post(`/api/issues/${selectedIssue.value.id}/responses`, {
-            response_text: newResponse.value,
-            user_id: currentUser.id,
-            issue_id: selectedIssue.value.id
-        });
-        newResponse.value = "";
-        await fetchResponses(selectedIssue.value.id);
-    } catch (error) {
-        console.error('Error submitting response:', error);
-    }
+  try {
+    await axios.post(`/api/issues/${selectedIssue.value.id}/responses`, {
+      response_text: newResponse.value,
+      user_id: currentUser.id,
+      issue_id: selectedIssue.value.id,
+    });
+    newResponse.value = '';
+    await store.dispatch('issues/fetchIssueResponses', selectedIssue.value.id);
+  } catch (error) {
+    console.error('Error submitting response:', error);
+  }
 };
 </script>
 
