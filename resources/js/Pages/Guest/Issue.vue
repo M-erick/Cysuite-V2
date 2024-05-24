@@ -6,7 +6,6 @@
             <div class="flex flex-row justify-between bg-white h-full">
                 <!-- chat list: i'll loop through issues and response from my issue  and Response table -->
                 <div class="flex flex-col w-2/5 border-r-2 overflow-y-auto">
-                    <!-- search component -->
                     <div class="border-b-2 py-4 px-2 flex justify-between" style="background-color: #046a5b">
                         <span class="text-white">User Issue Page</span>
                         <span @click="toggleForms" class="cursor-pointer text-white">
@@ -56,12 +55,12 @@
                                     formatTimestamp(response.created_at)
                                     }}</span>
                             </div>
-                            <i class="fa-solid fa-check text-white py-2 px-4 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl m-3  bg-green-900"
+                            <i :class="['fa-solid fa-check text-white py-2 px-4 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl m-3', {'bg-green-900': !isIssueClosed, 'bg-gray-500': isIssueClosed}]"
                                 @click="markAsResolved(response.id)">
                             </i>
 
 
-                            <select @change="rateResponse(response.id)">
+                            <select @change="(event) => rateResponse(event.target.value, response.id)">
                                 <option disabled value="">
                                     Rate the Response
                                 </option>
@@ -149,6 +148,9 @@ const issues = computed(() => store.state.issues.issues);
 const selectedIssue = computed(() => store.state.issues.selectedIssue);
 const responses = computed(() => store.state.issues.responses);
 
+// check if issue has being resloved
+const isIssueClosed = computed(() => selectedIssue.value && selectedIssue.value.status === 'closed');
+
 // Fetch issues on component mount
 onMounted(() => {
     store.dispatch("issues/fetchIssues");
@@ -211,6 +213,42 @@ const submitResponse = async () => {
 const userFilteredIssues = computed(() => {
   return issues.value.filter((issue) => issue.user_id === currentUser.id);
 });
+
+
+//  mark issue as resolve
+const markAsResolved = async (responseId) => {
+  try {
+    await axios.put(`/api/issues/${selectedIssue.value.id}`, {
+        user_id: currentUser.id,
+        title: selectedIssue.value.title,
+        description: selectedIssue.value.description,
+         status: 'closed',
+    });
+    await store.dispatch('issues/fetchIssues');
+    await store.dispatch('issues/fetchIssueResponses', selectedIssue.value.id);
+  } catch (error) {
+    console.error('Error marking issue as resolved:', error);
+  }
+};
+
+
+const rateResponse = async (rating, responseId) => {
+  const response = responses.value.find(resp => resp.id === responseId);
+  if (!response) {
+    console.error('Response not found');
+    return;
+  }
+
+  try {
+    await axios.post(`/api/ratings`, {
+      user_id: currentUser.id,
+      rated_user_id: response.user_id,
+      rating: rating,
+    });
+  } catch (error) {
+    console.error('Error rating response:', error);
+  }
+};
 </script>
 
 <style scoped>
