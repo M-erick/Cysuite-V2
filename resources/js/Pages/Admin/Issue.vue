@@ -22,7 +22,7 @@
                         </div>
                         <div class="w-full">
                             <div class="text-lg font-semibold">{{ issue.title }}</div>
-                            <span>{{ issue.description }}</span>
+                            <span><span class="font-bold  " >{{issue.user.name}}:</span>{{ issue.description }}</span>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                             class="flex mb-4">
 
 
-                            <span>Admin@{{ response.user_id }}</span>
+                            <span>@AdminID::<span class="font-semibold">{{ response.user_id }}</span></span>
                             <div
                                 class="relative mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
                                 {{ response.response_text }}
@@ -136,6 +136,7 @@ const submitResponse = async () => {
         border-bottom-width: 2px;
         border-left-width: 2px;
         border-color: #046a5b;
+
     }
     button {
         background-color: #046a5b;
