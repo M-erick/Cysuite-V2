@@ -3,13 +3,16 @@
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ResponseController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminRoomController;
+use App\Http\Controllers\GuestRoomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,14 @@ use App\Http\Controllers\UserController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::get('/guest_rooms', [GuestRoomController::class, 'index']);
+Route::get('/guest_rooms/{id}', [GuestRoomController::class, 'show']);
+
+Route::get('/admin_rooms', [AdminRoomController::class, 'index']);
+Route::get('/admin_rooms/{id}', [AdminRoomController::class, 'show']);
+
+Route::get('/roles', [RoleController::class, 'index']);
+Route::get('/roles/{id}', [RoleController::class, 'show']);
 
 // Route::middleware(['auth:sanctum', 'check.supervisor'])->group(function () {
     Route::post('/admins', [AdminController::class, 'store']);
