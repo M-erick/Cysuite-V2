@@ -8,7 +8,7 @@
 <style scoped>
 .logo {
     font-family: "Cinzel Decorative", serif;
-        font-weight: 700;
+        font-weight: 900;
         font-style: normal;
         font-size: 34px;
         color: #AD9551;
