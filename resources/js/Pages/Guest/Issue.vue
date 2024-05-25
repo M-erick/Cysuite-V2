@@ -6,9 +6,9 @@
             <div class="flex flex-row justify-between bg-white h-full">
                 <!-- chat list: i'll loop through issues and response from my issue  and Response table -->
                 <div class="flex flex-col w-2/5 border-r-2 overflow-y-auto">
-                    <div class="border-b-2 py-4 px-2 flex justify-between" style="background-color: #046a5b">
-                        <span class="text-white">User Issue Page</span>
-                        <span @click="toggleForms" class="cursor-pointer text-white">
+                    <div class="border-b-2 py-4 px-2 flex justify-between" style="background-color: #AD9551">
+                        <span class="text-white text-2xl"  style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">Issues</span>
+                        <span @click="toggleForms" class="cursor-pointer text-white" style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">
                             Create Issue <i class="fas fa-plus-circle text-white"></i>
                         </span>
                     </div>
@@ -17,19 +17,19 @@
                     <div v-for="issue in userFilteredIssues" :key="issue.id"
                         class="flex flex-row py-4 px-2 items-center border-b-2 cursor-pointer"
                         @click="selectIssue(issue)" :class="{
-                            'selected-issue text-white ': isSelected(issue),
+                            'selected-issue  ': isSelected(issue),
                         }">
-                        <div class="w-1/4 mr-2">
+                        <!-- <div class="w-1/4 mr-2">
                             <div
                                 class="h-12 md:h-16 w-12 md:w-16 rounded-full border-2 border-gray-300 flex items-center justify-center">
                                 <i class="fa-solid fa-user text-2xl md:text-4xl"></i>
                             </div>
-                        </div>
-                        <div class="w-full">
-                            <div class="text-lg font-semibold">
+                        </div> -->
+                        <div class="w-full ml-3">
+                            <div class="text-lg font-semibold" style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:500;">
                                 {{ issue.title }}
                             </div>
-                            <span>{{ issue.description }}</span>
+                            <span class="text-blueGray-500" style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">{{ issue.description }}</span>
                         </div>
                     </div>
                 </div>
@@ -253,10 +253,10 @@ const rateResponse = async (rating, responseId) => {
 
 <style scoped>
 .selected-issue {
-    background-color: #046a5b;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
-    border-color: #046a5b;
+    /* background-color: #046a5b; */
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+    border-color: #AD9551;
 }
 button {
     background-color: #046a5b;
