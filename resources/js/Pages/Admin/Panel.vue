@@ -14,7 +14,7 @@
 
                         <a class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white"
                             href="#">
-                            <i class="fas fa-home mr-2"></i>Admin Panel
+                            <i class="fas fa-home mr-2" style="color:#046a5b;"></i>Admin Panel
                         </a>
 
 
@@ -25,7 +25,7 @@
 
                         <Link :href="route('guest.assignRoom')"
                             class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white"> <i
-                            class="fas fa-users mr-2"></i>Assign Guest
+                            class="fas fa-users mr-2"></i>Assign Guest Room
                         </Link>
 
                         <Link :href="route('rooms.create')"
@@ -76,7 +76,7 @@
                             Recent Guest
                         </h2>
                         <div class="my-1"></div>
-                        <hr class="font-semibold mb-5 mt-1" />
+                        <hr class="font-semibold mb-5 mt-1" style="border-color:#046a5b" />
                         <table class="w-full table-auto text-sm">
                             <thead>
                                 <tr class="text-sm leading-normal">
@@ -133,7 +133,7 @@
                             Admins
                         </h2>
                         <div class="my-1"></div>
-                        <hr class="font-semibold mb-5 mt-1" />
+                        <hr class="font-semibold mb-5 mt-1" style="border-color:#046a5b"  />
                         <table class="w-full table-auto text-sm">
                             <thead>
                                 <tr class="text-sm leading-normal text-white">
