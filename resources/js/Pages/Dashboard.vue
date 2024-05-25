@@ -29,7 +29,7 @@
                         <div class="flex-1">
                             <div class="flex items-center justify-center">
 
-                                    <p class="text-3xl  ">Booked Rooms</p>
+                                    <p class="text-3xl  "> Rooms</p>
 
 
                             </div>
