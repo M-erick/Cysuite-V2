@@ -329,7 +329,7 @@ onMounted(async () => {
   await fetchRoom();
   await fetchAdmins();
   await fetchGuests();
-  await fetchUserRole();
+ 
 });
 </script>
 
