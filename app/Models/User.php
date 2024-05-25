@@ -50,7 +50,7 @@ class User extends Authenticatable
     }
     public function guestRooms()
     {
-        return $this->belongsToMany(Room::class, 'guest_rooms');
+        return $this->belongsToMany(Room::class, 'guest_room');
     }
 
     //  a user can have many issues .
