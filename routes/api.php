@@ -45,10 +45,14 @@ Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{id}', [UserController::class, 'show']);
 
 //Guest Routes:Register Should be protected
-Route::post('/guests/register', [GuestController::class, 'register']);
+Route::post('/guest', [GuestController::class, 'store']);
+    Route::put('/guest/{id}', [GuestController::class, 'update']);
+    Route::delete('/guest/{id}', [GuestController::class, 'destroy']);
+// });
 
-Route::post('/guests/login', [GuestController::class, 'login']);
-
+// Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/guest', [GuestController::class, 'index']);
+    Route::get('/guest/{id}', [GuestController::class, 'show']);
 
 // Room routes
 
