@@ -8,7 +8,7 @@
                         class="absolute opacity-0 top-0 right-0 left-0 bottom-0"></a>
                     <div class="relative mb-4 rounded-2xl">
                         <img class="max-h-80 rounded-2xl w-full object-cover  "
-                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+                            src="https://mediaassets.cbre.com/cdn/-/media/project/cbre/dotcom/global/services/property-types/hotels/hotels-topic-hero.jpeg?iar=0&rev=501dfba27e9e4e03a4e8af6428fb01bc&key=topichero-default&device=desktop" alt="">
 
 
 
