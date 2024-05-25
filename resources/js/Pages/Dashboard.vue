@@ -29,12 +29,14 @@
                         <div class="flex-1">
                             <div class="flex items-center justify-center">
 
-                                    <p class="text-3xl  "> Rooms</p>
+                                    <p class="text-3xl  " style="color:#AD9551;font-family: 'Cinzel Decorative',serif ;font-weight: 400;font-style: normal;"> Current Room Booking</p>
+
 
 
                             </div>
-                            <p class="text-sm font-semibold ">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Quaerat, quo.</p>
+                            <p class="text-center px-2 font-semibold " style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:200; font-size:20px;" > Discover Our thoughtfully designed apartments  </p>
+
+
 
                         </div>
                     </div>
@@ -65,10 +67,10 @@
                                 <div class="flex items-center">
                                     <div class="flex flex-1">
                                         <div class="">
-                                            <p class="text-3xl">{{ room.type }} Room </p>
+                                            <p class="text-3xl" style=" font-family: 'Roboto Serif', serif;font-style: normal;">{{ room.type }} Room </p>
 
                                             <!-- define the description part in the database {i need : description ,image,capacity} -->
-                                            <p class="text-sm font-semibold">{{ room.description }}</p>
+                                            <p class="text-sm font-semibold" style=" font-family: 'Roboto Serif', serif;font-style: normal; font-weight: 300;"> {{ room.description }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +78,7 @@
                             <h3 class="flex justify-center items-center font-medium text-xl">
                                 <!-- this routes should be dynamic :i'lll add '/rooms/details+ room.id' -->
                                 <Link :href="'/rooms/details/' + room.id"
-                                    class="flex justify-center items-center bg-opacity-80 z-10 top-0 left-0 w-full h-full text-black rounded-2xl">
+                                    class="flex justify-center items-center bg-opacity-80 z-10 top-0 left-0 w-full h-full  rounded-2xl" style="color:#AD9551 ;">
                                 View All
                                 <i
                                                 class="fa-solid fa-chevron-right pl-2"
