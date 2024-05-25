@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +19,7 @@ class AdminController extends Controller
   // List all admins
   public function index()
   {
-      $admins = User::whereIn('role', ['normal_admin', 'supervisor_admin'])->get();
+      $admins = User::whereIn('role_id', [2,3])->get();
       return response()->json($admins);
   }
   // Show a specific admin
@@ -36,50 +37,11 @@ class AdminController extends Controller
       }
   }
 
-  // Create a new admin
+  // Assign room to admin 
   public function store(Request $request)
   {
       $validator = Validator::make($request->all(), [
-          'name' => 'required|string|max:255',
-          'email' => 'required|string|email|max:255|unique:users',
-          'password' => 'required|string|min:8',
-          'role' => 'required|in:normal_admin,supervisor_admin',
-          'rooms' => 'array',
-          'rooms.*' => 'required|exists:rooms,id',
-      ]);
-
-      if ($validator->fails()) {
-          return response()->json($validator->errors(), 400);
-      }
-
-      $admin = User::create([
-          'name' => $request->name,
-          'email' => $request->email,
-          'password' => Hash::make($request->password),
-          'role' => $request->role,
-      ]);
-
-      // Attach rooms to the admin
-      if ($request->has('rooms')) {
-        $admin->rooms()->sync($request->rooms);
-    }
-
-      return response()->json($admin, 201);
-  }
-  // Update an existing admin
-  public function update(Request $request, $id)
-  {
-      $admin = User::findOrFail($id);
-
-      if (!in_array($admin->role, ['normal_admin', 'supervisor_admin'])) {
-          return response()->json(['message' => 'Admin not found'], 404);
-      }
-
-      $validator = Validator::make($request->all(), [
-          'name' => 'sometimes|required|string|max:255',
-          'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id,
-          'password' => 'sometimes|required|string|min:8',
-          'role' => 'sometimes|required|in:normal_admin,supervisor_admin',
+          'admin_id' => 'required|exists:users,id',
           'rooms' => 'array',
           'rooms.*' => 'exists:rooms,id',
       ]);
@@ -88,18 +50,46 @@ class AdminController extends Controller
           return response()->json($validator->errors(), 400);
       }
 
-      $admin->update($request->only('name', 'email', 'role'));
+      $admin = User::findOrFail($request->input('admin_id'));
 
-      if ($request->has('password')) {
-          $admin->password = Hash::make($request->password);
-          $admin->save();
+      if (!in_array($admin->role_id, [Role::where('name', 'normal_admin')->first()->id, Role::where('name', 'supervisor_admin')->first()->id])) {
+          return response()->json(['message' => 'The selected user is not an admin'], 422);
       }
+
+      // Attach rooms to the admin
       if ($request->has('rooms')) {
+          $admin->rooms()->sync($request->rooms);
+      }
+
+      return response()->json($admin, 201);
+  }
+
+  // Update an existing admin
+  public function update(Request $request, $id)
+{
+    $admin = User::findOrFail($id);
+
+    if (!in_array($admin->role_id, [Role::where('name', 'normal_admin')->first()->id, Role::where('name', 'supervisor_admin')->first()->id])) {
+        return response()->json(['message' => 'Admin not found'], 404);
+    }
+
+    $validator = Validator::make($request->all(), [
+        'rooms' => 'array',
+        'rooms.*' => 'exists:rooms,id',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 400);
+    }
+
+    // Attach rooms to the admin
+    if ($request->has('rooms')) {
         $admin->rooms()->sync($request->rooms);
     }
 
-      return response()->json($admin);
-  }
+    return response()->json($admin);
+}
+
 
   // Delete an admin
   public function destroy($id)
