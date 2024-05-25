@@ -48,6 +48,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink  v-if="isSupervisorAdmin" :href="route('panel')">
                                     Admin Panel
                                 </NavLink>
+                                <NavLink  v-else :href="route('issue')">
+                                  Post Issue
+                                </NavLink>
 
 
 
