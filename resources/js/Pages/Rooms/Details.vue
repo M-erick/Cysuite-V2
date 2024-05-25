@@ -14,7 +14,7 @@
                 >
                     <span
                         id="blackOverlay"
-                        class="w-full h-full absolute opacity-75 bg-black"
+                        class="w-full h-full absolute opacity-50 bg-black"
                     ></span>
                 </div>
                 <div class="container relative mx-auto">
@@ -60,15 +60,16 @@
                     <div class="w-full pb-4 mb-auto">
                         <div class="flex items-center">
                             <div class=" flex-1">
-                                <div class="">
+                                <div class="flex items-center justify-center">
                                     <!-- <p class="text-3xl">{{ room.name }}</p> -->
-                                    <p class="text-sm font-semibold">
+                                    <p class="text-sm font-semibold" style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">
                                         {{ room.description }}
                                     </p>
-                                    <p class="text-sm font-semibold">
-                                        {{ room.price }}
-                                    </p>
+
                                 </div>
+                                <p class="text-center px-2  pt-3 font-semibold" style="color:#AD9551; font-family: 'Cinzel Decorative',serif ;font-style: normal;font-weight:700;">
+                                        Price: ksh {{ room.price }}
+                                    </p>
                             </div>
                         </div>
                     </div>
@@ -102,45 +103,49 @@
                     </article>
                     <!-- create a grid inside the the article below to contain room feature amenities  -->
                     <article class="bg-white p-6 mb-6">
+
+                        <p class="text-center   pb-3 font-semibold" style="color:#AD9551; font-family: 'Cinzel Decorative',serif ;font-style: normal;font-weight:700;font-size: 20px;">
+                            {{ room.type }}
+                                    </p>
                         <h3 class="font-bold text-3xl">Features & Amenities</h3>
 
                         <div
                             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto"
                         >
-                            <div>
-                                <i class="fa-solid fa-bed"></i>
+                            <div >
+                                <i class="fa-solid fa-bed" style="color:#AD9551"></i>
                                 <p>bedroom</p>
                             </div>
                             <div>
-                                <i class="fa-solid fa-fan"></i>
+                                <i class="fa-solid fa-fan" style="color:#AD9551"></i>
                                 <p>Air Conditioning</p>
                             </div>
                             <div>
-                                <i class="fa-solid fa-wifi"></i>
+                                <i class="fa-solid fa-wifi" style="color:#AD9551"></i>
                                 <p>WiFi</p>
                             </div>
                             <div>
-                                <i class="fa-solid fa-tv"></i>
+                                <i class="fa-solid fa-tv" style="color:#AD9551"></i>
                                 <p>TV</p>
                             </div>
                             <div>
-                                <i class="fa-solid fa-phone"></i>
+                                <i class="fa-solid fa-phone" style="color:#AD9551"></i>
                                 <p>Telephone</p>
                             </div>
                             <div>
-                                <i class="fa-solid fa-bath"></i>
+                                <i class="fa-solid fa-bath" style="color:#AD9551"></i>
                                 <p>Bathrobes</p>
                             </div>
                             <div>
-                                <i class="fa-solid fa-mug-saucer"></i>
+                                <i class="fa-solid fa-mug-saucer" style="color:#AD9551"></i>
                                 <p>Coffee Machine</p>
                             </div>
                             <div>
-                                <i class="fa-solid fa-martini-glass"></i>
+                                <i class="fa-solid fa-martini-glass" style="color:#AD9551"></i>
                                 <p>Mini-bar</p>
                             </div>
                             <div>
-                                <i class="fa-solid fa-restroom"></i>
+                                <i class="fa-solid fa-restroom" style="color:#AD9551"></i>
                                 <p>Bath Room</p>
                             </div>
                         </div>
@@ -165,7 +170,7 @@
                                 <li class="py-3 sm:py-4">
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
-                                            <i class="fas fa-award"></i>
+                                            <i class="fas fa-award" style="color:#AD9551"></i>
 
                                             <p
                                                 class="text-sm font-medium text-gray-900 truncate dark:text-white"
@@ -188,7 +193,7 @@
                                 <li class="py-3 sm:py-4">
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
-                                            <i class="fas fa-award"></i>
+                                            <i class="fas fa-award" style="color:#AD9551"></i>
 
                                             <p
                                                 class="text-sm font-medium text-gray-900 truncate dark:text-white"
@@ -212,7 +217,7 @@
                                 <li class="py-3 sm:py-4">
                                     <div class="flex items-center space-x-4">
                                         <div class="flex-1 min-w-0">
-                                            <i class="fas fa-award"></i>
+                                            <i class="fas fa-award" style="color:#AD9551"></i>
                                             <p
                                                 class="text-sm font-medium text-gray-900 truncate dark:text-white"
                                             >
