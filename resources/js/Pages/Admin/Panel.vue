@@ -89,6 +89,9 @@
                                     <th class="py-2 px-4 font-bold uppercase text-white text-sm border-b">
                                         Email
                                     </th>
+                                    <th class="py-2 px-4 font-bold uppercase text-white text-sm border-b">
+                                       Room
+                                    </th>
                                     <th class="py-2 px-4 font-bold uppercase text-white  text-sm border-b">
                                         Date In
                                     </th>
@@ -101,10 +104,12 @@
                                 <tr v-for="guest in guestData" :key="guest.id">
                                     <td class="py-2 px-4 border-b">{{guest.id}}</td>
 
-                                    <td class="py-2 px-4 border-b">{{guest.name}}</td>
-                                    <td class="py-2 px-4 border-b">{{ guest.email }}</td>
+                                    <td class="py-2 px-4 border-b">{{guest.username}}</td>
+                                    <td class="py-2 px-4 border-b">{{ guest.useremail }}</td>
+                                    <td class="py-2 px-4 border-b">{{ guest.assignedRooms }}</td>
+
                                     <td class="py-2 px-4 border-b">
-                                        {{ formatTimestamp(guest.created_at) }}
+                                        {{ formatTimestamp(guest.dateAssigned) }}
                                     </td>
                                     <td class="py-2 px-4 border-b font-bold " style="color:#046a5b">
                                       PENDING..
@@ -142,24 +147,26 @@
                                         email
                                     </th>
                                     <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        Date Assigned
+                                        Room
                                     </th>
                                     <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        Role
+                                        Date
                                     </th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="admin in adminData" :key="admin.id">
                                     <td class="py-2 px-4 border-b">{{admin.id}}</td>
 
-                                    <td class="py-2 px-4 border-b">{{admin.name}}</td>
-                                    <td class="py-2 px-4 border-b">{{ admin.email }}</td>
-                                    <td class="py-2 px-4 border-b">
-                                        {{ formatTimestamp(admin.created_at) }}
+                                    <td class="py-2 px-4 border-b">{{admin.username}}</td>
+                                    <td class="py-2 px-4 border-b">{{ admin.useremail }}</td>
+
+                                    <td class="py-2 px-4 border-b  " >
+                                      {{admin.assignedRooms}}
                                     </td>
-                                    <td class="py-2 px-4 border-b font-bold " style="color:#046a5b">
-                                      {{admin.userRole}}
+                                    <td class="py-2 px-4 border-b">
+                                        {{ formatTimestamp(admin.dateAssigned) }}
                                     </td>
                                 </tr>
 
@@ -220,8 +227,22 @@ const fetchRoom = async () => {
 };
 const fetchGuests = async()=>{
     try{
-        const response = await axios.get('/api/guest');
-        guestData.value = response.data;
+        const response = await axios.get('/api/guest_rooms');
+        const guestRoomData = response.data;
+        for(const guest of guestRoomData){
+            const guestBooking = await axios.get(`/api/users/${guest.user_id}`);
+            //  user's role and assign it to admin object
+            guest.username = guestBooking.data.name;
+            guest.useremail = guestBooking.data.email;
+            guest.dateAssigned = guestBooking.data.created_at;
+
+            const assignedRooms = await axios.get(`/api/rooms/${guest.room_id}`);
+            guest.assignedRooms = assignedRooms.data.name;
+        }
+        console.log(guestRoomData );
+
+
+        guestData.value = guestRoomData ;
 
 
     }catch(error){
@@ -230,20 +251,24 @@ const fetchGuests = async()=>{
 
 };
 
-// fetch admin details
+// fetch admin details:here i used table admin_rooms as pivot table,implement the same Idea in guests
 const fetchAdmins = async()=>{
     try{
-        const response = await axios.get('/api/admins');
+        const response = await axios.get('/api/admin_rooms');
         // adminData.value = response.data;
         const adminRoomData = response.data;
         for (const admin of adminRoomData) {
 
-            const adminRole = await axios.get(`/api/roles/${admin.role_id}`);
+            const adminRole = await axios.get(`/api/users/${admin.user_id}`);
             //  user's role and assign it to admin object
-            admin.userRole = adminRole.data.name;
+            admin.username = adminRole.data.name;
+            admin.useremail = adminRole.data.email;
+            admin.dateAssigned = adminRole.data.created_at;
+
+            const assignedRooms = await axios.get(`/api/rooms/${admin.room_id}`);
+            admin.assignedRooms = assignedRooms.data.name;
 
         }
-        console.log(adminRoomData);
         adminData.value = adminRoomData;
 
     }catch(error){
