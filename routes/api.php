@@ -29,27 +29,21 @@ Route::get('/guest_rooms/{id}', [GuestRoomController::class, 'show']);
 
 Route::get('/admin_rooms', [AdminRoomController::class, 'index']);
 Route::get('/admin_rooms/{id}', [AdminRoomController::class, 'show']);
+Route::post('/admins', [AdminController::class, 'store']);
+Route::put('/admins/{id}', [AdminController::class, 'update']);
+Route::delete('/admins/{id}', [AdminController::class, 'destroy']);
+
+Route::get('/admins', [AdminController::class, 'index']);
+Route::get('/admins/{id}', [AdminController::class, 'show']);
 
 Route::get('/roles', [RoleController::class, 'index']);
 Route::get('/roles/{id}', [RoleController::class, 'show']);
 
-// Route::middleware(['auth:sanctum', 'check.supervisor'])->group(function () {
-    Route::post('/admins', [AdminController::class, 'store']);
-    Route::put('/admins/{id}', [AdminController::class, 'update']);
-    Route::delete('/admins/{id}', [AdminController::class, 'destroy']);
-// });
 
-// Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/admins', [AdminController::class, 'index']);
-    Route::get('/admins/{id}', [AdminController::class, 'show']);
-// });
+Route::put('/rooms/{id}', [RoomController::class, 'update']);
+Route::delete('/rooms/{id}', [RoomController::class, 'destroy']);
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-// Route::get('/users',function (Request $request) {
-//     return User::all();
-// });
+
 
 // fetch user details:dummy routes will update this
 Route::get('/users', [UserController::class, 'index']);
@@ -70,8 +64,7 @@ Route::post('/guest', [GuestController::class, 'store']);
 Route::get('/rooms', [RoomController::class, 'index']);
 Route::post('/rooms', [RoomController::class, 'store']);
 Route::get('/rooms/{id}', [RoomController::class, 'show']);
-Route::put('/rooms/{id}', [RoomController::class, 'update']);
-Route::delete('/rooms/{id}', [RoomController::class, 'destroy']);
+
 
 Route::get('/room/{roomId}/details', function () {
     // Route accessible only to guests linked to the specified room: using the middleware check.guestAcess
