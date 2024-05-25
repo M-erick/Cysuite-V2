@@ -26,12 +26,12 @@
                     <div class=" w-full pb-4 mb-auto">
                         <div class="flex items-center">
 
-                            <div class="flex flex-1">
-                                <div class="">
+                            <div class="flex-1">
+                                <div class="flex items-center justify-center">
                                     <p class="text-3xl  "> Rooms</p>
-                                    <p class="text-sm font-semibold ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam dolorum repellendus aliquid ab provident cum ea, hic maiores autem, ducimus voluptates, officia necessitatibus exercitationem incidunt cupiditate ex natus facilis enim?</p>
-
                                 </div>
+                                <p class="text-sm font-semibold ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, quo.</p>
+
                             </div>
                         </div>
 
