@@ -3,11 +3,11 @@
 
         <div class="relative pt-2 lg:pt-2 ">
             <article
-                    class="bg-white  p-6 mb-6 shadow  group  rounded-2xl cursor-pointer border">
+                    class="bg-white  mt-2 ml-3 mr-3 mb-3  group   cursor-pointer border">
                     <a target="_self" href="/blog/slug"
                         class="absolute opacity-0 top-0 right-0 left-0 bottom-0"></a>
-                    <div class="relative mb-4 rounded-2xl">
-                        <img class="max-h-80 rounded-2xl w-full object-cover  "
+                    <div class="relative ">
+                        <img class="max-h-80  w-full object-cover  "
                             src="https://mediaassets.cbre.com/cdn/-/media/project/cbre/dotcom/global/services/property-types/hotels/hotels-topic-hero.jpeg?iar=0&rev=501dfba27e9e4e03a4e8af6428fb01bc&key=topichero-default&device=desktop" alt="">
 
 
@@ -78,7 +78,7 @@
                             <h3 class="flex justify-center items-center font-medium text-xl">
                                 <!-- this routes should be dynamic :i'lll add '/rooms/details+ room.id' -->
                                 <Link :href="'/rooms/details/' + room.id"
-                                    class="flex justify-center items-center bg-opacity-80 z-10 top-0 left-0 w-full h-full  rounded-2xl" style="color:#AD9551 ;">
+                                    class="flex justify-center items-center  z-10 top-0 left-0 w-full h-full  " style="color:#AD9551 ;font-family: 'Roboto Serif', serif;font-style: normal;">
                                 View All
                                 <i
                                                 class="fa-solid fa-chevron-right pl-2"
