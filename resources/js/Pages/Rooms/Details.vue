@@ -60,7 +60,7 @@
                     <div class="w-full pb-4 mb-auto">
                         <div class="flex items-center">
                             <div class=" flex-1">
-                                <div class="flex items-center justify-center">
+                                <div class="">
                                     <!-- <p class="text-3xl">{{ room.name }}</p> -->
                                     <p class="text-sm font-semibold">
                                         {{ room.description }}
