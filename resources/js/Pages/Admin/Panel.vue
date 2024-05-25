@@ -72,7 +72,7 @@
 
                     <!-- Recent Guest Table:loop through database the first 5 : or i'll use pagination(5) in laravel -->
                     <div class="mt-8 bg-white p-4 shadow rounded-lg">
-                        <h2 class="text-gray-500 text-lg font-semibold pb-4">
+                        <h2 class="text-lg font-semibold pb-4" style="color:#046a5b">
                             Recent Guest
                         </h2>
                         <div class="my-1"></div>
@@ -124,79 +124,45 @@
                         </div>
                     </div>
                     <div class="mt-8 bg-white p-4 shadow rounded-lg">
-                        <h2 class="text-gray-500 text-lg font-semibold pb-4">
+                        <h2 class="text-gray-500 text-lg font-semibold pb-4" style="color:#046a5b">
                             Admins
                         </h2>
                         <div class="my-1"></div>
                         <hr class="font-semibold mb-5 mt-1" />
                         <table class="w-full table-auto text-sm">
                             <thead>
-                                <tr class="text-sm leading-normal">
+                                <tr class="text-sm leading-normal text-white">
+                                    <th class="py-2 px-4 font-bold uppercase text-sm border-b">
+                                        ID
+                                    </th>
                                     <th class="py-2 px-4 font-bold uppercase text-sm border-b">
                                         Name
                                     </th>
                                     <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        Room
+                                        email
                                     </th>
                                     <th class="py-2 px-4 font-bold uppercase text-sm border-b">
                                         Date Assigned
                                     </th>
                                     <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        Date Out
+                                        Role
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="py-2 px-4 border-b">Erick</td>
-                                    <td class="py-2 px-4 border-b">F31</td>
+                                <tr v-for="admin in adminData" :key="admin.id">
+                                    <td class="py-2 px-4 border-b">{{admin.id}}</td>
+
+                                    <td class="py-2 px-4 border-b">{{admin.name}}</td>
+                                    <td class="py-2 px-4 border-b">{{ admin.email }}</td>
                                     <td class="py-2 px-4 border-b">
-                                        27/07/2023
+                                        {{ formatTimestamp(admin.created_at) }}
                                     </td>
-                                    <td class="py-2 px-4 border-b">
-                                        27/07/2023
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b">Ian</td>
-                                    <td class="py-2 px-4 border-b">F32</td>
-                                    <td class="py-2 px-4 border-b">
-                                        27/07/2023
-                                    </td>
-                                    <td class="py-2 px-4 border-b">
-                                        27/07/2023
+                                    <td class="py-2 px-4 border-b font-bold " style="color:#046a5b">
+                                      {{admin.userRole}}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b">Terry</td>
-                                    <td class="py-2 px-4 border-b">F33</td>
-                                    <td class="py-2 px-4 border-b">
-                                        27/07/2023
-                                    </td>
-                                    <td class="py-2 px-4 border-b">
-                                        27/07/2023
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b">Chelsea</td>
-                                    <td class="py-2 px-4 border-b">F34</td>
-                                    <td class="py-2 px-4 border-b">
-                                        27/07/2023
-                                    </td>
-                                    <td class="py-2 px-4 border-b">
-                                        27/07/2023
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 border-b">Fred</td>
-                                    <td class="py-2 px-4 border-b">F35</td>
-                                    <td class="py-2 px-4 border-b">
-                                        27/07/2023
-                                    </td>
-                                    <td class="py-2 px-4 border-b">
-                                        27/07/2023
-                                    </td>
-                                </tr>
+
                             </tbody>
                         </table>
 
@@ -222,6 +188,8 @@ import axios from 'axios';
 const totalUsers = ref(0);
 const availableRooms = ref(0);
 const guestData = ref([]);
+const adminData = ref([]);
+
 const { props } = usePage();
 const currentUser = props.auth.user;
 // use the name of the currently log in user:i see this as repeating my self:already have user:
@@ -250,27 +218,52 @@ const fetchRoom = async () => {
         console.error('error fetching available rooms', error);
     }
 };
-const fetchAdmins = async()=>{
+const fetchGuests = async()=>{
     try{
         const response = await axios.get('/api/guest');
         guestData.value = response.data;
 
-        console.log(guestData.value);
 
     }catch(error){
         console.error('error fetching admin details',error);
     }
 
 };
+
+// fetch admin details
+const fetchAdmins = async()=>{
+    try{
+        const response = await axios.get('/api/admins');
+        // adminData.value = response.data;
+        const adminRoomData = response.data;
+        for (const admin of adminRoomData) {
+
+            const adminRole = await axios.get(`/api/roles/${admin.role_id}`);
+            //  user's role and assign it to admin object
+            admin.userRole = adminRole.data.name;
+
+        }
+        console.log(adminRoomData);
+        adminData.value = adminRoomData;
+
+    }catch(error){
+        console.error('error fetching admin details',error);
+    }
+
+};
+
 const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp);
   const options = { hour: 'numeric', minute: 'numeric', day: 'numeric', month: 'long', year: 'numeric' };
   return date.toLocaleString(undefined, options);
 };
+
+
 onMounted(async()=>{
     await fetchuser();
     await fetchRoom();
     await fetchAdmins();
+    await fetchGuests();
 })
 </script>
 
