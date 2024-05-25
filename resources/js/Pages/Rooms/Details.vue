@@ -26,9 +26,9 @@
                                 <h1 class="text-white font-semibold text-5xl">
                                     {{ room.name }}
                                 </h1>
-                                <p class="mt-4 text-lg text-blueGray-200">
+                                <!-- <p class="mt-4 text-lg text-blueGray-200">
                                     {{ room.type }}
-                                </p>
+                                </p> -->
                             </div>
                         </div>
                     </div>
@@ -59,18 +59,21 @@
                 >
                     <div class="w-full pb-4 mb-auto">
                         <div class="flex items-center">
-                            <div class="flex flex-1">
-                                <div class="">
-                                    <p class="text-3xl">{{ room.name }}</p>
+                            <div class=" flex-1">
+                                <div class="flex items-center justify-center">
+                                    <!-- <p class="text-3xl">{{ room.name }}</p> -->
                                     <p class="text-sm font-semibold">
                                         {{ room.description }}
+                                    </p>
+                                    <p class="text-sm font-semibold">
+                                        {{ room.price }}
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex justify-end space-x-4 mt-4">
+                    <!-- <div class="flex justify-end space-x-4 mt-4">
                         <Link
                             :href="route('rooms.edit', { id: room.id })"
                             class="px-4 py-2 bg-blue-500 text-white rounded-lg"
@@ -83,7 +86,7 @@
                         >
                             Delete
                         </button>
-                    </div>
+                    </div> -->
                 </article>
                 <div
                     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center items-center px-2 mx-auto"
