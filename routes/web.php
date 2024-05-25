@@ -71,7 +71,17 @@ Route::get('/adminPanel', function () {
     return Inertia::render('Admin/Panel');
 })->name('panel');
 
-Route::get('/issue', function () {
+Route::get('/response', function () {
     return Inertia::render('Admin/Response');
+})->name('response');
+
+Route::get('/issue', function () {
+    return Inertia::render('Guest/Issue');
 })->name('issue');
+
+Route::get('/guest/create', function () {
+    return Inertia::render('Guest/AssignRoom');
+})->name('guest.assignRoom');
+
+
 require __DIR__.'/auth.php';
