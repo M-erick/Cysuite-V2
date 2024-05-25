@@ -6,7 +6,16 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import { usePage } from "@inertiajs/vue3";
+const { props } = usePage();
 
+// fetch the ID of the currently log in user
+const currentUserRoleId = ref(props.auth.user.role_id);
+console.log(currentUserRoleId.value);
+
+const isSupervisorAdmin = ref(false);
+// check role_id :if is supervisor_admin
+isSupervisorAdmin.value = [2, 3].includes(currentUserRoleId.value);
 const showingNavigationDropdown = ref(false);
 </script>
 
@@ -33,17 +42,14 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('rooms')">
                                     Rooms
                                 </NavLink>
-                              
-                                <NavLink :href="route('rooms.edit')">
-                                    Edit Room
-                                </NavLink>
-                                <NavLink :href="route('panel')">
+
+
+                                <!-- display this only if the user is normal or supervisor admin -->
+                                <NavLink  v-if="isSupervisorAdmin" :href="route('panel')">
                                     Admin Panel
                                 </NavLink>
 
-                                <NavLink :href="route('issue')">
-                                    Issue
-                                </NavLink>
+
 
 
 
