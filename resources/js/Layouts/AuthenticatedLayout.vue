@@ -11,7 +11,7 @@ const { props } = usePage();
 
 // fetch the ID of the currently log in user
 const currentUserRoleId = ref(props.auth.user.role_id);
-console.log(currentUserRoleId.value);
+// console.log(currentUserRoleId.value);
 
 const isSupervisorAdmin = ref(false);
 // check role_id :if is supervisor_admin
