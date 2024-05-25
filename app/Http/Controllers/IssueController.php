@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Issue;
+use App\Models\Response;
 use Illuminate\Http\Request;
 
 class IssueController extends Controller
@@ -69,5 +71,33 @@ class IssueController extends Controller
         $issue->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function markResolved(Request $request, $issueId)
+    {
+        $request->validate([
+            'rating' => 'nullable|integer|min=1|max=5',
+        ]);
+
+        $issue = Issue::findOrFail($issueId);
+        $issue->status = 'closed';
+        $issue->save();
+
+        if ($request->has('rating')) {
+            // Add the rating to the responses related to the issue
+            Response::where('issue_id', $issueId)->update(['rating' => $request->rating]);
+
+            // Update the admin's average rating
+            $this->updateAdminRating($issue->admin_id);
+        }
+
+        return response()->json($issue);
+    }
+
+    private function updateAdminRating($adminId)
+    {
+        $admin = User::findOrFail($adminId);
+        $admin->average_rating = Response::where('user_id', $adminId)->avg('rating');
+        $admin->save();
     }
 }

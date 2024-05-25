@@ -37,51 +37,72 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/admins/create', function () {
-    return Inertia::render('Admin/Create');
-})->name('admins.create');
+Route::middleware('auth')->group(function () {
 
-// define room routes
-Route::get('/rooms/create', function () {
-    return Inertia::render('Rooms/Create');
-})->name('rooms.create');
+    Route::get('/rooms/details/{id}', function ($id) {
+        // first fetch the data
+        $room = Room::find($id);
+        return Inertia::render('Rooms/Details', [
+            'room' => $room,
+        ]);
+    })->name('roomDetails');
+});
+Route::middleware(['auth', 'role:guest'])->group(function () {
+    Route::get('/issue', function () {
+        return Inertia::render('Guest/Issue');
+    })->name('issue');
+});
 
-Route::get('/rooms/edit', function () {
-    return Inertia::render('Rooms/Edit');
-})->name('rooms.edit');
+
+Route::get('/adminPanel', function () {
+    return Inertia::render('Admin/Panel');
+})->name('panel');
+
+// admin Panel:supervisor_admin permissions
+Route::middleware(['auth', 'role:supervisor_admin'])->group(function () {
+
+    Route::get('/response', function () {
+        return Inertia::render('Admin/Response');
+    })->name('response');
+    Route::get('/rooms/create', function () {
+        return Inertia::render('Rooms/Create');
+    })->name('rooms.create');
+    Route::get('/admins/create', function () {
+        return Inertia::render('Admin/Create');
+    })->name('admins.create');
+
+    // define room routes
+
+    Route::get('/rooms/edit', function () {
+        return Inertia::render('Rooms/Edit');
+    })->name('rooms.edit');
+    Route::get('/guest/create', function () {
+        return Inertia::render('Guest/AssignRoom');
+    })->name('guest.assignRoom');
+});
+
+// normal admin role assignment
+Route::middleware(['auth', 'role:normal_admin'])->group(function () {
+   
+    Route::get('/response', function () {
+        return Inertia::render('Admin/Response');
+    })->name('response');
+});
+
 Route::get('/rooms', function () {
     return Inertia::render('Rooms/Index');
 })->name('rooms');
 
-Route::get('/rooms/details/{id}',function($id){
-    // first fetch the data
-    $room = Room::find($id);
-return Inertia::render('Rooms/Details',[
-    'room' => $room,
-]);
-})->name('roomDetails');
+
 
 Route::get('/roomType', function () {
     return Inertia::render('Rooms/RoomType');
 })->name('room.type');
 
 
-// admin Panel
-Route::get('/adminPanel', function () {
-    return Inertia::render('Admin/Panel');
-})->name('panel');
-
-Route::get('/response', function () {
-    return Inertia::render('Admin/Response');
-})->name('response');
-
-Route::get('/issue', function () {
-    return Inertia::render('Guest/Issue');
-})->name('issue');
-
-Route::get('/guest/create', function () {
-    return Inertia::render('Guest/AssignRoom');
-})->name('guest.assignRoom');
 
 
-require __DIR__.'/auth.php';
+
+
+
+require __DIR__ . '/auth.php';

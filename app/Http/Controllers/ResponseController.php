@@ -10,12 +10,12 @@ class ResponseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $issueId)
     {
-        //
-        $responses = Response::all();
+        $responses = Response::where('issue_id', $issueId)->get();
         return response()->json($responses);
     }
+
 
     /**
      * Store a newly created resource in storage.
