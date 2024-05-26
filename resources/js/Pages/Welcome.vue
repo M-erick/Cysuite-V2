@@ -91,7 +91,7 @@ defineProps({
         </div>
 
       </div>
-      <section class="pb-10 bg-blueGray-200 -mt-24">
+      <section class="pb-10 bg-white -mt-24">
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap">
             <div class="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center transition duration-300  transform hover:translate-y-4">
