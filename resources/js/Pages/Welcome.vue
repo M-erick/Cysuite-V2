@@ -82,8 +82,8 @@ defineProps({
                 <h1 class="text-white font-semibold text-2xl" style="font-family: 'Cinzel Decorative',serif ;font-weight: 700;font-style: normal;">
                   About Us
                 </h1>
-                <p class="mt-10 text-sm text-blueGray-200">
-                    <i class="fa-solid fa-chevron-down" style="font-size: 30px"></i>
+                <p class="mt-10 font-semibold text-white transition duration-300 group transform hover:translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer">
+                    <i class="fa-solid fa-chevron-down" style="font-size: 40px"></i>
                 </p>
               </div>
             </div>
@@ -94,7 +94,7 @@ defineProps({
       <section class="pb-10 bg-blueGray-200 -mt-24">
         <div class="container mx-auto px-4">
           <div class="flex flex-wrap">
-            <div class="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
+            <div class="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center transition duration-300  transform hover:translate-y-4">
               <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div class="px-4 py-5 flex-auto">
                   <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full " style=" background-color:#AD9551;">
@@ -111,7 +111,7 @@ defineProps({
                 </div>
               </div>
             </div>
-            <div class="w-full md:w-4/12 px-4 text-center">
+            <div class="w-full md:w-4/12 px-4 text-center  transition duration-500  transform hover:-translate-y-2 ">
               <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div class="px-4 py-5 flex-auto">
                   <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full" style=" background-color:#AD9551;">
@@ -125,7 +125,7 @@ defineProps({
                 </div>
               </div>
             </div>
-            <div class="pt-6 w-full md:w-4/12 px-4 text-center">
+            <div class="pt-6 w-full md:w-4/12 px-4 text-center transition duration-300  transform hover:translate-y-4">
               <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                 <div class="px-4 py-5 flex-auto">
                   <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full" style=" background-color:#AD9551;">
