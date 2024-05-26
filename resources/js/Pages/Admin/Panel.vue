@@ -14,7 +14,7 @@
               class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white"
               href="#"
             >
-              <i class="fa-solid fa-user-tie text-gray-500 mr-2"></i
+              <i class="fa-solid fa-user-tie  mr-2" style="color: #046a5b"></i
               >{{ currentUser.name }}
             </a>
 
@@ -30,28 +30,28 @@
               :href="route('admins.create')"
               class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white"
             >
-              <i class="fas fa-file-alt mr-2"></i>Assign Admin
+              <i class="fas fa-file-alt mr-2" style="color: #046a5b"></i>Assign Admin
             </Link>
 
             <Link
               :href="route('guest.assignRoom')"
               class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white"
             >
-              <i class="fas fa-users mr-2"></i>Assign Guest Room
+              <i class="fas fa-users mr-2" style="color: #046a5b"></i>Assign Guest Room
             </Link>
 
             <Link
               :href="route('rooms.create')"
               class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white"
             >
-              <i class="fa-solid fa-house mr-2"></i>Add Room
+              <i class="fa-solid fa-house mr-2" style="color: #046a5b"></i>Add Room
             </Link>
 
             <Link
               :href="route('response')"
               class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white"
             >
-              <i class="fas fa-exchange-alt mr-2"></i>Response
+              <i class="fas fa-exchange-alt mr-2"  style="color: #046a5b"></i>Response
             </Link>
 
             <!-- <Link
@@ -269,7 +269,7 @@
 
             <div class="text-right mt-4">
               <button
-                class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded"
+                class=" hover:bg-green-900 text-white font-semibold py-2 px-4 rounded"
               >
                 View more
               </button>
@@ -423,5 +423,8 @@ td {
 
 th {
   background-color: #046a5b;
+}
+button {
+    background-color: #046a5b;
 }
 </style>
