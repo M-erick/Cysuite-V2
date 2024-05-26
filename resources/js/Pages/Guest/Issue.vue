@@ -57,7 +57,7 @@
                                 'justify-start':
                                     response.user_id !== currentUser.id,
                             }" class="flex mb-4">
-                            <span>@AdminID::<span class="font-semibold">{{
+                            <span>@UserID::<span class="font-semibold">{{
                                     response.user_id
                                     }}</span></span>
                             <div
@@ -73,7 +73,7 @@
                             </i>
 
 
-                            <select @change="(event) => rateResponse(event.target.value, response.id)">
+                            <select v-if="!isIssueClosed" @change="(event) => rateResponse(event.target.value, response.id)">
                                 <option disabled value="">
                                     Rate the Response
                                 </option>
