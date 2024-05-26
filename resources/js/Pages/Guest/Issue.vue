@@ -7,8 +7,10 @@
                 <!-- chat list: i'll loop through issues and response from my issue  and Response table -->
                 <div class="flex flex-col w-2/5 border-r-2 overflow-y-auto">
                     <div class="border-b-2 py-4 px-2 flex justify-between" style="background-color: #AD9551">
-                        <span class="text-white text-2xl"  style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">Issues</span>
-                        <span @click="toggleForms" class="cursor-pointer text-white" style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">
+                        <span class="text-white text-2xl"
+                            style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">Issues</span>
+                        <span @click="toggleForms" class="cursor-pointer text-white"
+                            style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">
                             Create Issue <i class="fas fa-plus-circle text-white"></i>
                         </span>
                     </div>
@@ -26,11 +28,19 @@
                             </div>
                         </div> -->
                         <div class="w-full ml-3">
-                            <div class="text-lg font-semibold" style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:500;">
+                            <div class="text-lg font-semibold"
+                                style="font-family: 'Roboto Serif', serif; font-style: normal; font-weight: 500;">
                                 {{ issue.title }}
                             </div>
-                            <span class="text-blueGray-500" style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">{{ issue.description }}</span>
+                            <div class="text-gray-800"
+                                style="font-family: 'Roboto Serif', serif; font-style: normal; font-weight: 400;">
+                                {{ issue.description }}
+                            </div>
+                            <div style="text-align: right; font-size: 0.75rem; margin-top: 0.5rem; color: #6b7280;">
+                                {{ formatTimestamp(issue.created_at) }}
+                            </div>
                         </div>
+
                     </div>
                 </div>
 
