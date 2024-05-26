@@ -59,6 +59,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        if ($user->role_id == $roleIds['guest']) {
+            return redirect(RouteServiceProvider::HOME);
+        } elseif (in_array($user->role_id, [$roleIds['normal_admin'], $roleIds['supervisor_admin']])) {
+            return redirect()->route('panel');
+        }
+
         return redirect(RouteServiceProvider::HOME);
     }
 }
