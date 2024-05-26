@@ -67,7 +67,7 @@
                                 <div class="flex items-center">
                                     <div class="flex flex-1">
                                         <div class="">
-                                            <p class="text-3xl" style=" font-family: 'Roboto Serif', serif;font-style: normal;">{{ room.type }} Room </p>
+                                            <p class="text-3xl" style=" font-family: 'Roboto Serif', serif;font-style: normal;">{{ room.type }}</p>
 
                                             <!-- define the description part in the database {i need : description ,image,capacity} -->
                                             <p class="text-sm font-semibold" style=" font-family: 'Roboto Serif', serif;font-style: normal; font-weight: 300;"> {{ room.description }}</p>
@@ -133,6 +133,7 @@ onMounted(async() => {
       guest.assignedRooms = assignedRooms.data.name;
       guest.image = assignedRooms.data.image;
       guest.description = assignedRooms.data.description;
+      guest.type = assignedRooms.data.type;
 
     }
      // Filter out guest bookings for the current user
