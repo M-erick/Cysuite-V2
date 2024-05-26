@@ -16,7 +16,17 @@
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                         <option v-for="room in rooms" :value="room.id" :key="room.id">{{ room.name }}</option>
                     </select>
+                    <!-- 0713356146 -->
                 </div>
+                <div class="form-group">
+          <label for="is_occupied">Occupied:</label>
+          <input type="checkbox" id="is_occupied" v-model="isOccupied" >
+        </div>
+        <div>
+            <label for="capacity">Capacity:</label>
+            <input type="number" id="capacity" v-model="capacity" placeholder="Capacity" required>
+
+        </div>
 
                 <button type="submit" class="w-full bg-blue-500 text-white rounded-md py-2">Assign Rooms</button>
             </form>
@@ -58,6 +68,7 @@
         user_id: selectedGuest.value,
         rooms: selectedRooms.value
       });
+      await updateRoomOccupancy();
       console.log(selectedRooms.value);
 
     } catch (error) {
@@ -65,9 +76,33 @@
     }
   };
 
+  const  isOccupied = ref(false);
+  const capacity = ref('');
+  const updateRoomOccupancy = async () => {
+    for (const roomId of selectedRooms.value) {
+        try {
+            // Fetch the current room data
+            const response = await axios.get(`/api/rooms/${roomId}`);
+            const roomData = response.data;
+
+            // Update the room data
+            roomData.is_occupied = isOccupied.value;
+            roomData.capacity = capacity.value;
+
+            // then drop the image since there is i do not need of it
+            delete roomData.image;
+
+            // Send the updated room data back to the server
+            await axios.put(`/api/rooms/${roomId}`, roomData);
+        } catch (error) {
+            console.error(`Error updating room ${roomId}:`, error);
+        }
+    }
+};
   onMounted(() => {
     fetchGuests();
     fetchRooms();
+
   });
   </script>
 
