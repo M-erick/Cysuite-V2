@@ -55,11 +55,11 @@
                 <div class="w-12/12 mx-auto rounded-2xl bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
                     <div v-if="roomFetched" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
                         <article v-for="room in roomData" :key="room.id"
-                            class="bg-white p-6 mb-6 shadow transition duration-300 group transform hover:-translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer border">
+                            class="bg-white p-3 mb-3 shadow transition duration-300 group transform hover:-translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer border">
                             <div class="relative mb-4 rounded-2xl">
 
                                 <!-- I'll implement the  image part -->
-                                <img class="max-h-80 rounded-2xl w-full object-cover transition-transform duration-300 transform group-hover:scale-105"
+                                <img class="max-h-80 rounded w-full object-cover transition-transform duration-300 transform group-hover:scale-105"
                                     :src="getImageUrl(room.image) || 'https://via.placeholder.com/150'"
                                     alt="Room Image">
                             </div>
