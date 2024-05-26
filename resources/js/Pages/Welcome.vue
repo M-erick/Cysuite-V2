@@ -35,9 +35,9 @@ defineProps({
 <section class="relative  bg-blueGray-50">
 <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
         <div class="absolute top-0 w-full h-full bg-center bg-cover" style="
-            background-image: url('https://www.quellenhof.it/fileadmin/_processed_/6/2/csm_Quellenhof_Resort_Passeier_Eingang_3_6931ccbc0d.jpg');
+            background-image: url('https://cysuites.com/assets/images/landing_page1.jpeg');
           ">
-          <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
+          <span id="blackOverlay" class="w-full h-full absolute opacity-35 bg-black"></span>
         </div>
 
 
@@ -56,13 +56,13 @@ defineProps({
                     class="font-semibold text-white    focus:outline focus:outline-2 focus:rounded-sm focus:outline-white" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;"
                     >Log in</Link
                 >
-
+<!--
                 <Link
                     v-if="canRegister"
                     :href="route('register')"
                     class="ms-4 font-semibold  text-white   focus:outline focus:outline-2 focus:rounded-sm focus:outline-white" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;"
                     >Register</Link
-                >
+                > -->
             </template>
         </div>
         <div class="container relative mx-auto">
@@ -73,14 +73,14 @@ defineProps({
 
               <div class="pr-12">
 
-                <h1 class="text-white font-semibold text-5xl pb-4" style="font-family: 'Cinzel Decorative',serif ;font-weight: 900;font-style: normal; color:#AD9551;">
-                 Cysuite
+                <h1 class="text-white font-semibold text-5xl pb-4" style="font-family: 'Cinzel Decorative',serif ;font-weight: 900;font-style: normal; ">
+                 Cysuite Apartments Hotel
                 </h1>
 
 
 
-                <h1 class="text-white font-semibold text-2xl" style="font-family: 'Cinzel Decorative',serif ;font-weight: 700;font-style: normal;">
-                  About Us
+                <h1 class="text-white font-semibold text-2xl uppercase" style="font-family: 'Roboto Serif',serif ;font-weight: 400;font-style: normal; ">
+                    More than just hotels Culture
                 </h1>
                 <p class="mt-10 font-semibold text-white transition duration-300 group transform hover:translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer">
                     <i class="fa-solid fa-chevron-down" style="font-size: 40px"></i>
@@ -103,8 +103,8 @@ defineProps({
                   </div>
                   <h6 class="text-xl font-semibold" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;">About Us </h6>
                   <p class="mt-2 mb-4 text-blueGray-500">
-                    Cysuite has been welcoming guests to spectacular destinations in the most stunning style.
-                    Together we’ve explored the world and discovered new places, possibilities and horizons.
+                    Cysuite has been welcoming guests to  our spectacular destination in the most stunning style.
+                    Together we’ll explore the world and discover new places, possibilities and horizons.
                      The very epitome of luxury, our brand is passionate about creating and crafting rich,
                      meaningful and memorable experiences for every guest.
                   </p>
