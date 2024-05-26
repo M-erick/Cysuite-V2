@@ -36,19 +36,19 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links:Will update this navigation link  -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')"  style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal; color:black;">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('rooms')">
+                                <NavLink :href="route('rooms')" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;  color:black;">
                                     Rooms
                                 </NavLink>
 
 
                                 <!-- display this only if the user is normal or supervisor admin -->
-                                <NavLink  v-if="isSupervisorAdmin" :href="route('panel')">
+                                <NavLink  v-if="isSupervisorAdmin" :href="route('panel')" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;  color:black;">
                                     Admin Panel
                                 </NavLink>
-                                <NavLink  v-else :href="route('issue')">
+                                <NavLink  v-else :href="route('issue')" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;  color:black;">
                                   Post Issue
                                 </NavLink>
 

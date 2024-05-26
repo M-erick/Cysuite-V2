@@ -57,13 +57,13 @@ Route::middleware(['auth', 'role:guest'])->group(function () {
 Route::get('/adminPanel', function () {
     return Inertia::render('Admin/Panel');
 })->name('panel');
-
+Route::get('/response', function () {
+    return Inertia::render('Admin/Response');
+})->name('response');
 // admin Panel:supervisor_admin permissions
 Route::middleware(['auth', 'role:supervisor_admin'])->group(function () {
 
-    Route::get('/response', function () {
-        return Inertia::render('Admin/Response');
-    })->name('response');
+
     Route::get('/rooms/create', function () {
         return Inertia::render('Rooms/Create');
     })->name('rooms.create');
@@ -83,10 +83,7 @@ Route::middleware(['auth', 'role:supervisor_admin'])->group(function () {
 
 // normal admin role assignment
 Route::middleware(['auth', 'role:normal_admin'])->group(function () {
-   
-    Route::get('/response', function () {
-        return Inertia::render('Admin/Response');
-    })->name('response');
+
 });
 
 Route::get('/rooms', function () {

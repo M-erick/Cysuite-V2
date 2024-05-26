@@ -53,12 +53,12 @@
               <i class="fas fa-exchange-alt mr-2"></i>Response
             </Link>
 
-            <Link
+            <!-- <Link
               :href=" route('register')"
               class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white"
             >
               <i class="fas fa-exchange-alt mr-2"></i>Register
-            </Link>
+            </Link> -->
 
 
 
