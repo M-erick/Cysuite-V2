@@ -103,25 +103,17 @@ import { Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-
-onMounted(() => {
-    fetchRooms();
+import { useStore } from 'vuex';
+onMounted(async () => {
+    await store.dispatch('rooms/fetchRooms');
+    rooms.value = store.state.rooms.rooms;
 });
 
 // room records
+const store = useStore();
 const rooms = ref([]);
 
-const fetchRooms = async () => {
-    try {
 
-        // default routes :http://lr-cysuites.test/api/rooms
-        const response = await axios.get('/api/rooms');
-        rooms.value = response.data;
-        console.log(rooms.value);
-    } catch (error) {
-        console.error('Error fetching rooms:', error);
-    }
-};
 
 // to get the image :try this logic
 function getImageUrl(imagePath) {
