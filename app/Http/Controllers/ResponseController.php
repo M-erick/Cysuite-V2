@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Issue;
 use App\Models\Response;
+use App\Mail\IssueReplied;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ResponseController extends Controller
 {
@@ -30,6 +33,9 @@ class ResponseController extends Controller
         ]);
 
         $response = Response::create($request->all());
+
+        $issue = Issue::with('user')->findOrFail($request->issue_id);
+        Mail::to($issue->user->email)->send(new IssueReplied($issue));
         return response()->json($response, 201);
     }
 

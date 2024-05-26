@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Issue;
 use App\Models\Response;
+use App\Mail\IssueRaised;
+use App\Mail\IssueReplied;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class IssueController extends Controller
 {
@@ -31,8 +34,15 @@ class IssueController extends Controller
 
         $issue = Issue::create($request->all());
 
+        // Send email to normal admins
+        $admins = User::where('role_id', 2)->get();
+        foreach ($admins as $admin) {
+            Mail::to($admin->email)->send(new IssueRaised($issue));
+        }
+
         return response()->json($issue, 201);
     }
+
 
     /**
      * Display the specified resource.
