@@ -36,6 +36,9 @@
                                 style="font-family: 'Roboto Serif', serif; font-style: normal; font-weight: 400;">
                                 {{ issue.description }}
                             </div>
+                            <div  class="text-semibold " style="text-align: right;  margin-top: 0.5rem; color:#AD9551; ">
+                                {{ issue.status }}
+                            </div>
                             <div style="text-align: right; font-size: 0.75rem; margin-top: 0.5rem; color: #6b7280;">
                                 {{ formatTimestamp(issue.created_at) }}
                             </div>
