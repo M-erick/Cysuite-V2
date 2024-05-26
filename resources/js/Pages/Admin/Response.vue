@@ -6,14 +6,15 @@
             <div class="flex flex-row justify-between bg-white h-full">
                 <!-- chat list: i'll loop through issues and response from my issue  and Response table -->
                 <div class="flex flex-col w-2/5 border-r-2 overflow-y-auto">
-                    <!-- search component -->
-                    <div class="border-b-2 py-4 px-2" style="background-color:#046a5b ;">
-                        <span  class="text-white">Issue Page</span>
+                    <!-- header -->
+                    <div class="border-b-2 py-4 px-2" style="background-color: #AD9551">
+                        <span class="text-white text-2xl"
+                            style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">Issues</span>
                     </div>
                     <!-- user list: Fetch the user details from the database -->
                     <div v-for="issue in filteredIssues" :key="issue.id"
                         class="flex flex-row py-4 px-2 items-center border-b-2 cursor-pointer"
-                        @click="selectIssue(issue)" :class="{ 'selected-issue text-white ': isSelected(issue) }">
+                        @click="selectIssue(issue)" :class="{ 'selected-issue': isSelected(issue) }">
                         <div class="w-1/4 mr-2">
                             <div
                                 class="h-12 md:h-16 w-12 md:w-16 rounded-full border-2 border-gray-300 flex items-center justify-center">
@@ -21,8 +22,14 @@
                             </div>
                         </div>
                         <div class="w-full">
-                            <div class="text-lg font-semibold">{{ issue.title }}</div>
-                            <span><span class="font-bold  " >{{issue.user.name}}:</span>{{ issue.description }}</span>
+                            <div class="text-lg font-semibold" style="font-family: 'Roboto Serif', serif; font-style: normal; font-weight: 500;">{{ issue.title }}</div>
+                            <span class="text-gray-800"><span class="font-bold  " style="color:#AD9551" >{{issue.user.name}}:</span>{{ issue.description }}</span>
+                            <div  class="text-semibold " style="text-align: right;  margin-top: 0.5rem; color:#AD9551; ">
+                                {{ issue.status }}
+                            </div>
+                            <div style="text-align: right; font-size: 0.75rem; margin-top: 0.5rem; color: #6b7280;">
+                                {{ formatTimestamp(issue.created_at) }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -132,14 +139,14 @@ const submitResponse = async () => {
 
 <style scoped>
 .selected-issue {
-        background-color: #046a5b;
-        border-bottom-width: 2px;
-        border-left-width: 2px;
-        border-color: #046a5b;
+       /* background-color: #046a5b; */
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+    border-color: #AD9551;
 
     }
     button {
-        background-color: #046a5b;
+        background-color: #AD9551;
 
     }
 </style>
