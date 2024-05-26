@@ -120,7 +120,7 @@ defineProps({
                   </div>
                   <h6 class="text-xl font-semibold" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;">Our Story</h6>
                   <p class="mt-2 mb-4 text-blueGray-500">
-                    Across decades  innovation and discovery has always guided the evolution of the Cysuite brand.
+                    Across continent and decades,  innovation and discovery has always guided the evolution of the Cysuite brand.
                   </p>
                 </div>
               </div>
@@ -133,7 +133,7 @@ defineProps({
                   </div>
                   <h6 class="text-xl font-semibold" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;">Review</h6>
                   <p class="mt-2 mb-4 text-blueGray-500">
-                    At the heart of Cysuite is the remarkable people who look after each and every guest attentively and thoughtfully.
+                    At the heart of Cysuite is the remarkable team of  people who look after each and every guest attentively and thoughtfully.
 
                       we have a team  waiting to welcome you and take care of everything you could wish for with warmth, charisma, care and attention to detail.
                   </p>
