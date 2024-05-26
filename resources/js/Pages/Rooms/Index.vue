@@ -58,7 +58,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
                         <article v-for="room in rooms" :key="room.id"
                             class="bg-white p-3 mb-3 shadow transition duration-300 group transform hover:-translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer border">
-                            <div class="relative mb-4 rounded">
+                            <div class="relative mb-4 rounded-2xl">
 
                                 <!-- I'll implement the  image part -->
                                 <img class="max-h-80 rounded w-full object-cover transition-transform duration-300 transform group-hover:scale-105"
@@ -103,17 +103,25 @@ import { Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { useStore } from 'vuex';
-onMounted(async () => {
-    await store.dispatch('rooms/fetchRooms');
-    rooms.value = store.state.rooms.rooms;
+
+onMounted(() => {
+    fetchRooms();
 });
 
 // room records
-const store = useStore();
 const rooms = ref([]);
 
+const fetchRooms = async () => {
+    try {
 
+        // default routes :http://lr-cysuites.test/api/rooms
+        const response = await axios.get('/api/rooms');
+        rooms.value = response.data;
+        console.log(rooms.value);
+    } catch (error) {
+        console.error('Error fetching rooms:', error);
+    }
+};
 
 // to get the image :try this logic
 function getImageUrl(imagePath) {
