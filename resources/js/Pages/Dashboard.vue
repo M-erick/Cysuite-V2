@@ -77,7 +77,7 @@
                             </div>
                             <h3 class="flex justify-center items-center font-medium text-xl">
                                 <!-- this routes should be dynamic :i'lll add '/rooms/details+ room.id' -->
-                                <Link :href="'/rooms/details/' + room.id"
+                                <Link :href="'/rooms/details/' + room.room_id"
                                     class="flex justify-center items-center  z-10 top-0 left-0 w-full h-full  " style="color:#AD9551 ;font-family: 'Roboto Serif', serif;font-style: normal;">
                                 View All
                                 <i
