@@ -41,7 +41,7 @@ defineProps({
         </div>
 
 
-        <div v-if="canLogin" class="sm:fixed sm:top-0 sm:right-0 p-6 text-end">
+        <div v-if="canLogin" class="sm:fixed sm:top-0 sm:right-0 p-6 text-end uppercase" >
 
             <Link
                 v-if="$page.props.auth.user"
