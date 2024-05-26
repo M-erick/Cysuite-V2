@@ -8,7 +8,7 @@
         Cysuite
        </h1>
 
-    <h1 class="text-xl font-semibold" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;">New Issue Raised</h1>
+    <h1 class="text-xl font-semibold" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;">Issue Replied</h1>
     <p class="text-xl font-semibold" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;">An issue has been Replied with the following details:</p>
     <p class="text-xl font-semibold" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;">{{ $issue->title }}</p>
 </body>
