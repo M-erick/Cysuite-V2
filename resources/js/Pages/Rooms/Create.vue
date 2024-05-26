@@ -77,7 +77,7 @@
       formDataObj.append('capacity', formData.value.capacity);
       formDataObj.append('is_occupied', formData.value.is_occupied ? 1 : 0);
 
-      await axios.post(`http://lr-cysuites.test/api/rooms`, formDataObj, {
+      await axios.post(`/api/rooms`, formDataObj, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

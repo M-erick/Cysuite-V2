@@ -115,7 +115,7 @@ const fetchRooms = async () => {
     try {
 
         // default routes :http://lr-cysuites.test/api/rooms
-        const response = await axios.get('http://lr-cysuites.test/api/rooms');
+        const response = await axios.get('/api/rooms');
         rooms.value = response.data;
         console.log(rooms.value);
     } catch (error) {

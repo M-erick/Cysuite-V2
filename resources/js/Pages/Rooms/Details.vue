@@ -324,7 +324,7 @@ function getImageUrl(imagePath) {
 async function deleteRoom() {
     try {
         await axios.delete(
-            `http://lr-cysuites.test/api/rooms/${props.room.id}`
+            `/api/rooms/${props.room.id}`
         );
 
         //   after delete we redirect user to  rooms page
