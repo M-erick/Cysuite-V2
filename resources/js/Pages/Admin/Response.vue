@@ -44,7 +44,7 @@
                             class="flex mb-4">
 
 
-                            <span>@AdminID::<span class="font-semibold">{{ response.user_id }}</span></span>
+                            <span>@UserID::<span class="font-semibold">{{ response.user_id }}</span></span>
                             <div
                                 class="relative mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
                                 {{ response.response_text }}
