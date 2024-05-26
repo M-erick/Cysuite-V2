@@ -34,6 +34,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        // Conditional redirection based on the role_id
+        $user = Auth::user();
+        if ($user->role_id == 1) { //  1 is for 'guest'
+            return redirect()->intended(RouteServiceProvider::HOME);
+        } elseif (in_array($user->role_id, [2, 3])) { //  2 is for 'normal_admin' and 3 is for 'supervisor_admin'
+            return redirect()->route('panel');
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
