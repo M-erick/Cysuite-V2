@@ -81,6 +81,7 @@ defineProps({
 
                 <h1 class="text-white font-semibold text-2xl uppercase" style="font-family: 'Roboto Serif',serif ;font-weight: 400;font-style: normal; ">
                     More than just hotels Culture
+                    
                 </h1>
                 <p class="mt-10 font-semibold text-white transition duration-300 group transform hover:translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer">
                     <i class="fa-solid fa-chevron-down" style="font-size: 40px"></i>
