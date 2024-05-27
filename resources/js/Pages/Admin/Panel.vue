@@ -10,20 +10,16 @@
           id="sideNav"
         >
           <nav>
-            <a
-              class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white"
-              href="#"
-            >
-              <i class="fa-solid fa-user-tie  mr-2" style="color: #046a5b"></i
-              >{{ currentUser.name }}
-            </a>
+            
 
-            <a
+            <Link
+              :href="route('panel')"
               class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white"
-              href="#"
             >
               <i class="fas fa-home mr-2" style="color: #046a5b"></i>Admin Panel
-            </a>
+            </Link>
+
+            <!-- :href="route('panel')"  -->
 
             <Link
               v-if="isSupervisorAdmin"
