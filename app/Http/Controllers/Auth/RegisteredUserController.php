@@ -60,19 +60,19 @@ class RegisteredUserController extends Controller
         // uncomment this part when hosting then comment :
 
         // user should first verify  the email before to log in
-        // Auth::login($user);
+        Auth::login($user);
 
-        // if ($user->role_id == $roleIds['guest']) {
-        //     return redirect(RouteServiceProvider::HOME);
-        // } elseif (in_array($user->role_id, [$roleIds['normal_admin'], $roleIds['supervisor_admin']])) {
-        //     return redirect()->route('panel');
-        // }
+        if ($user->role_id == $roleIds['guest']) {
+            return redirect(RouteServiceProvider::HOME);
+        } elseif (in_array($user->role_id, [$roleIds['normal_admin'], $roleIds['supervisor_admin']])) {
+            return redirect()->route('panel');
+        }
 
-        // return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME);
 
 
         // once registered,redirect the admin  to admin panel.No need for the above role_id checks
-        return redirect()->route('panel');
+        // return redirect()->route('panel');
 
 
     }
