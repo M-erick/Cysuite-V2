@@ -36,11 +36,12 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links:Will update this navigation link  -->
                             <div v-if="!isSupervisorAdmin" class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')"  style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal; color:black;">
+                                <NavLink :href="route('dashboard')"  style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal; color:black;"
+                                :class="{'font-bold  navlink-Border':$page.url ==='/dashboard'}" >
                                     Dashboard
                                 </NavLink>
 
-                                <NavLink :href="route('rooms')" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;  color:black;">
+                                <NavLink :href="route('rooms')" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;  color:black;"  :class="{'font-bold  navlink-Border':$page.url ==='/rooms'}" >
                                     Rooms
                                 </NavLink>
 
@@ -48,16 +49,16 @@ const showingNavigationDropdown = ref(false);
 
                                 <!-- display this only if the user is normal or supervisor admin -->
 
-                                <NavLink   :href="route('issue')" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;  color:black;">
+                                <NavLink   :href="route('issue')" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;  color:black;"  :class="{'font-bold  navlink-Border':$page.url ==='/issue'}">
                                   Post Issue
                                 </NavLink>
                             </div>
                             <div v-else  class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink  :href="route('panel')" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;  color:black;">
+                                <NavLink  :href="route('panel')" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;  color:black;" :class="{'font-bold  navlink-Border':$page.url ==='/adminPanel'}" >
                                     Admin Panel
                                 </NavLink>
 
-                                <NavLink :href="route('rooms')" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;  color:black;">
+                                <NavLink :href="route('rooms')" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;  color:black;" :class="{'font-bold  navlink-Border':$page.url ==='/rooms'}">
                                     Rooms
                                 </NavLink>
 
@@ -71,8 +72,10 @@ const showingNavigationDropdown = ref(false);
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
+                                            <i class="fa-solid fa-user-tie text-gray-500 mt-2"></i>
+
                                             <button type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4  uppercase rounded-md  bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150" style="font-family: 'Roboto Serif',serif ;font-weight: 500;font-style: normal; color:black;">
                                                 {{ $page.props.auth.user.name }}
 
                                                 <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -158,3 +161,8 @@ const showingNavigationDropdown = ref(false);
         </div>
     </div>
 </template>
+<style scoped>
+.navlink-Border {
+    border-color: #AD9551;
+}
+</style>
