@@ -57,12 +57,12 @@ defineProps({
                     >Log in</Link
                 >
 
-                <!-- <Link
+                <Link
                     v-if="canRegister"
                     :href="route('register')"
                     class="ms-4 font-semibold  text-white   focus:outline focus:outline-2 focus:rounded-sm focus:outline-white" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;"
                     >Register</Link
-                > -->
+                >
             </template>
         </div>
         <div class="container relative mx-auto">
