@@ -122,11 +122,17 @@ const showingNavigationDropdown = ref(false);
                 <!-- Responsive Navigation Menu -->
                 <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
                     class="sm:hidden">
-                    <div class="pt-2 pb-3 space-y-1">
+                    <div v-if="!isSupervisorAdmin" class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
                     </div>
+                    <div v-else>
+                        <ResponsiveNavLink :href="route('panel')" :active="route().current('dashboard')">
+                            Admin Panel
+                        </ResponsiveNavLink>
+
+                        </div>
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
@@ -137,12 +143,25 @@ const showingNavigationDropdown = ref(false);
                             <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
                         </div>
 
-                        <div class="mt-3 space-y-1">
+                        <div v-if="!isSupervisorAdmin" class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('rooms')" > Rooms </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('issue')"> Post Issue </ResponsiveNavLink>
+
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                                 Log Out
                             </ResponsiveNavLink>
                         </div>
+                        <div  v-else class="mt-3 space-y-1">
+                            <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('rooms')" > Rooms </ResponsiveNavLink>
+
+
+                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
+                                Log Out
+                            </ResponsiveNavLink>
+                        </div>
+
                     </div>
                 </div>
             </nav>
