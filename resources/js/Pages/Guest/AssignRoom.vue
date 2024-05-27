@@ -4,7 +4,7 @@
             <h1 class="text-2xl font-bold mb-4">Assign Rooms to Guest</h1>
             <form @submit.prevent="assignRooms" class="space-y-4">
                 <div>
-                    <label for="admin" class="block text-sm font-medium text-gray-700">Select Admin</label>
+                    <label for="admin" class="block text-sm font-medium text-gray-700">Select Guest</label>
                     <select v-model="selectedGuest" required
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
                         <option v-for="guest in guests" :value="guest.id" :key="guest.id">{{ guest.name }}</option>
