@@ -57,12 +57,12 @@ defineProps({
                     >Log in</Link
                 >
 
-                <Link
+                <!-- <Link
                     v-if="canRegister"
                     :href="route('register')"
                     class="ms-4 font-semibold  text-white   focus:outline focus:outline-2 focus:rounded-sm focus:outline-white" style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;"
                     >Register</Link
-                >
+                > -->
             </template>
         </div>
         <div class="container relative mx-auto">
@@ -81,7 +81,7 @@ defineProps({
 
                 <h1 class="text-white font-semibold text-2xl uppercase" style="font-family: 'Roboto Serif',serif ;font-weight: 400;font-style: normal; ">
                     More than just hotels Culture
-                    
+
                 </h1>
                 <p class="mt-10 font-semibold text-white transition duration-300 group transform hover:translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer">
                     <i class="fa-solid fa-chevron-down" style="font-size: 40px"></i>
