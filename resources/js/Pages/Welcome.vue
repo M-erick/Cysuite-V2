@@ -46,7 +46,7 @@ defineProps({
             <Link
                 v-if="$page.props.auth.user"
                 :href="route('dashboard')"
-                class="font-semibold text-gray-600    focus:outline focus:outline-2 focus:rounded-sm focus:outline-white"  style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;"
+                class="font-semibold text-white     focus:outline focus:outline-2 focus:rounded-sm focus:outline-white"  style="font-family: 'Roboto Serif',serif ;font-weight: 600;font-style: normal;"
                 >Dashboard</Link
             >
 
