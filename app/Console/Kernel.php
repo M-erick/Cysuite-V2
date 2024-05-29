@@ -11,30 +11,18 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+
+    //register the command property
+    protected $commands = [
+        \App\Console\Commands\SendIssueReminders::class,
+    ];
     /**
      * Define the application's command schedule.
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->call(function () {
-            $issues = Issue::where('status', 'open')
-                            ->where('created_at', '<', now()->subDay())
-                            ->get();
+        $schedule->command('send:issue-reminders')->daily();
 
-            foreach ($issues as $issue) {
-                // Send reminder email to admins
-                $admins = User::where('role', 'normal_admin')->get();
-                foreach ($admins as $admin) {
-                    Mail::to($admin->email)->send(new IssueReminder($issue));
-                }
-
-                // Escalate issue to supervisors
-                $supervisors = User::where('role', 'supervisor_admin')->get();
-                foreach ($supervisors as $supervisor) {
-                    Mail::to($supervisor->email)->send(new IssueReminder($issue));
-                }
-            }
-        })->daily();
     }
 
     /**
@@ -42,10 +30,8 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
-
-
 }
