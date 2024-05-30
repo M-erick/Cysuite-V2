@@ -73,7 +73,7 @@
                                         <div class="">
                                             <p class="text-3xl"
                                                 style=" font-family: 'Roboto Serif', serif;font-style: normal;">{{
-                                                room.type }}</p>
+                                                    room.type }}</p>
 
                                             <!-- define the description part in the database {i need : description ,image,capacity} -->
                                             <p class="text-sm font-semibold"
@@ -120,41 +120,41 @@ const { props } = usePage();
 const currentUser = props.auth.user;
 // console.log(currentUser);
 const roomFetched = ref(false);
-onMounted(async() => {
+onMounted(async () => {
     await fetchUserBookings();
 
 });
 
 
- const roomData = ref([]);
+const roomData = ref([]);
 
- const fetchUserBookings = async () => {
-  try {
-    const response = await axios.get("/api/guest_rooms");
-    const guestRoomData = response.data;
-    for (const guest of guestRoomData) {
-      const guestBooking = await axios.get(`/api/users/${guest.user_id}`);
-      //  user's role and assign it to admin object
-      guest.username = guestBooking.data.name;
-      guest.useremail = guestBooking.data.email;
-      guest.dateAssigned = guestBooking.data.created_at;
+const fetchUserBookings = async () => {
+    try {
+        const response = await axios.get("/api/guest_rooms");
+        const guestRoomData = response.data;
+        for (const guest of guestRoomData) {
+            const guestBooking = await axios.get(`/api/users/${guest.user_id}`);
+            //  user's role and assign it to admin object
+            guest.username = guestBooking.data.name;
+            guest.useremail = guestBooking.data.email;
+            guest.dateAssigned = guestBooking.data.created_at;
 
-      const assignedRooms = await axios.get(`/api/rooms/${guest.room_id}`);
-      guest.assignedRooms = assignedRooms.data.name;
-      guest.image = assignedRooms.data.image;
-      guest.description = assignedRooms.data.description;
-      guest.type = assignedRooms.data.type;
+            const assignedRooms = await axios.get(`/api/rooms/${guest.room_id}`);
+            guest.assignedRooms = assignedRooms.data.name;
+            guest.image = assignedRooms.data.image;
+            guest.description = assignedRooms.data.description;
+            guest.type = assignedRooms.data.type;
 
+        }
+        // Filter out guest bookings for the current user
+        const currentUserBookings = guestRoomData.filter(guest => guest.user_id === currentUser.id);
+
+        console.log(currentUserBookings);
+        roomFetched.value = true;
+        roomData.value = currentUserBookings;
+    } catch (error) {
+        console.error("error fetching data details", error);
     }
-     // Filter out guest bookings for the current user
-     const currentUserBookings = guestRoomData.filter(guest => guest.user_id === currentUser.id);
-
-    console.log(currentUserBookings);
-    roomFetched.value = true;
-    roomData.value = currentUserBookings;
-  } catch (error) {
-    console.error("error fetching data details", error);
-  }
 };
 
 
