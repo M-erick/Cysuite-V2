@@ -1,436 +1,272 @@
 <template>
-<AuthenticatedLayout>
-    <div>
-       
+    <AuthenticatedLayout>
+        <!-- component -->
 
         <section class="relative bg-blueGray-50">
-            <div
-                class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75"
-            >
-                <div
-                    class="absolute top-0 w-full h-full bg-center bg-cover"
-                    style="
-                        background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1267&amp;q=80');
-                    "
-                >
-                    <span
-                        id="blackOverlay"
-                        class="w-full h-full absolute opacity-75 bg-black"
-                    ></span>
+            <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
+                <div class="absolute top-0 w-full h-full bg-center bg-cover" :style="{
+                    backgroundImage: `url(${getImageUrl(room.image)})`,
+                }">
+                    <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
                 </div>
                 <div class="container relative mx-auto">
                     <div class="items-center flex flex-wrap">
-                        <div
-                            class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center"
-                        >
+                        <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                             <div class="pr-12">
                                 <h1 class="text-white font-semibold text-5xl">
-                                    Your story starts with us.
+                                    {{ room.name }}
                                 </h1>
-                                <p class="mt-4 text-lg text-blueGray-200">
-                                    Best ranked rooms
-                                </p>
+                                <!-- <p class="mt-4 text-lg text-blueGray-200">
+                                    {{ room.type }}
+                                </p> -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <div
-                    class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
-                    style="transform: translateZ(0px)"
-                >
-                    <svg
-                        class="absolute bottom-0 overflow-hidden"
-                        xmlns="http://www.w3.org/2000/svg"
-                        preserveAspectRatio="none"
-                        version="1.1"
-                        viewBox="0 0 2560 100"
-                        x="0"
-                        y="0"
-                    >
-                        <polygon
-                            class="text-blueGray-200 fill-current"
-                            points="2560 0 2560 100 0 100"
-                        ></polygon>
+                <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
+                    style="transform: translateZ(0px)">
+                    <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+                        <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
                     </svg>
                 </div>
             </div>
             <section class="pb-10 bg-white -mt-24">
                 <article
-                    class="bg-white p-6 mb-6 shadow group transform hover:shadow-2xl cursor-pointer border"
-                >
+                    class="bg-white p-6 mb-6 shadow group transform hover:-translate-y-2 hover:shadow-2xl rounded-2xl cursor-pointer border">
                     <div class="w-full pb-4 mb-auto">
                         <div class="flex items-center">
-                            <div class="flex flex-1">
-                                <div class="">
-                                    <!-- update this with data  fetched from database  -->
-                                    <p class="text-3xl">Single Rooms</p>
-                                    <p class="text-sm font-semibold">
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Numquam dolorum
-                                        repellendus aliquid ab provident cum ea,
+                            <div class=" flex-1">
+                                <div class="flex items-center justify-center">
+                                    <!-- <p class="text-3xl">{{ room.name }}</p> -->
+                                    <p class="text-sm font-semibold"
+                                        style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">
+                                        {{ room.description }}
                                     </p>
+
                                 </div>
+                                <p class="text-center px-2  pt-3 font-semibold"
+                                    style="color:#AD9551; font-family: 'Cinzel Decorative',serif ;font-style: normal;font-weight:700;">
+                                    Price: ksh {{ room.price }}
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <div></div>
+                    <!-- <div class="flex justify-end space-x-4 mt-4">
+                        <Link
+                            :href="route('rooms.edit', { id: room.id })"
+                            class="px-4 py-2 bg-blue-500 text-white rounded-lg"
+                        >
+                            Update
+                        </Link>
+                        <button
+                            @click="deleteRoom"
+                            class="px-4 py-2 bg-red-500 text-white rounded-lg"
+                        >
+                            Delete
+                        </button>
+                    </div> -->
                 </article>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center items-center px-2 mx-auto">
+                    <article class="mb-6 shadow">
+                        <div class="relative h-full w-full">
+                            <img class="h-full w-full object-cover" :src="getImageUrl(room.image)" alt="" />
+                        </div>
+                    </article>
+                    <!-- create a grid inside the the article below to contain room feature amenities  -->
+                    <article class="bg-white p-6 mb-6">
+
+                        <p class="text-center   pb-3 font-semibold"
+                            style="color:#AD9551; font-family: 'Cinzel Decorative',serif ;font-style: normal;font-weight:700;font-size: 20px;">
+                            {{ room.type }}
+                        </p>
+                        <h3 class="font-bold text-3xl">Features & Amenities</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
+                            <div>
+                                <i class="fa-solid fa-bed" style="color:#AD9551"></i>
+                                <p>bedroom</p>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-fan" style="color:#AD9551"></i>
+                                <p>Air Conditioning</p>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-wifi" style="color:#AD9551"></i>
+                                <p>WiFi</p>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-tv" style="color:#AD9551"></i>
+                                <p>TV</p>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-phone" style="color:#AD9551"></i>
+                                <p>Telephone</p>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-bath" style="color:#AD9551"></i>
+                                <p>Bathrobes</p>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-mug-saucer" style="color:#AD9551"></i>
+                                <p>Coffee Machine</p>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-martini-glass" style="color:#AD9551"></i>
+                                <p>Mini-bar</p>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-restroom" style="color:#AD9551"></i>
+                                <p>Bath Room</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
 
                 <!-- dummy form details:update on this later DevEric -->
                 <!-- component -->
-                <div class="bg-cover w-full flex justify-center items-center">
-                    <div
-                        class="w-full bg-white backdrop-filter backdrop-blur-lg"
-                    >
-                        <div
-                            class="w-12/12 rounded-2xl bg-white p-2 bg-opacity-40"
-                        >
-                            <div
-                                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto"
-                            >
-                                <!-- the  article below should be dynamic ,i'll fetch  the data from the database -->
 
-                                <article
-                                    class="bg-white p-6 mb-2 shadow rounded-2xl cursor-pointer border"
-                                >
-                                    <div class="relative rounded-2xl">
-                                        <img
-                                            class="w-full object-cover"
-                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div class="w-full pb-4 mb-auto">
-                                        <div class="flex items-center">
-                                            <div class="flex flex-1">
-                                                <div class="">
-                                                    <p class="text-3xl">
-                                                        Single Rooms
-                                                    </p>
-                                                    <p
-                                                        class="text-sm font-semibold"
-                                                    >
-                                                        Lorem ipsum dolor sit
-                                                        amet consectetur
-                                                        adipisicing elit.
-                                                        Numquam dolorum
-                                                        repellendus aliquid ab
-                                                        provident cum ea, hic
-                                                        maiores autem, ducimus
-                                                        voluptates, officia
-                                                        necessitatibus
-                                                        exercitationem incidunt
-                                                        cupiditate ex natus
-                                                        facilis enim?
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h3
-                                        class="flex justify-center items-center font-medium text-xl"
-                                    >
-                                        <!-- modify the href below -->
-                                        <Link
-                                            class="flex justify-center items-center"
-                                            href="/rooms/details"
-                                            rel="invalid url"
-                                        >
-                                            View All
-                                            <i
-                                                class="fa-solid fa-chevron-right pl-2"
-                                            ></i>
-                                        </Link>
-                                    </h3>
-                                    <div></div>
-                                </article>
+                <div class="max-w-2xl m-4">
+                    <h3 class="text-3xl font-medium mb-3">
+                        Additional Services
+                    </h3>
+                    <div class="p-4 max-w-md bg-white border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                        <div class="flow-root">
+                            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <i class="fas fa-award" style="color:#AD9551"></i>
 
-                                <article
-                                    class="bg-white p-6 mb-2 shadow rounded-2xl cursor-pointer border"
-                                >
-                                    <div class="relative rounded-2xl">
-                                        <img
-                                            class="w-full object-cover"
-                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div class="w-full pb-4 mb-auto">
-                                        <div class="flex items-center">
-                                            <div class="flex flex-1">
-                                                <div class="">
-                                                    <p class="text-3xl">
-                                                        Single Rooms
-                                                    </p>
-                                                    <p
-                                                        class="text-sm font-semibold"
-                                                    >
-                                                        Lorem ipsum dolor sit
-                                                        amet consectetur
-                                                        adipisicing elit.
-                                                        Numquam dolorum
-                                                        repellendus aliquid ab
-                                                        provident cum ea, hic
-                                                        maiores autem, ducimus
-                                                        voluptates, officia
-                                                        necessitatibus
-                                                        exercitationem incidunt
-                                                        cupiditate ex natus
-                                                        facilis enim?
-                                                    </p>
-                                                </div>
-                                            </div>
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Breakfast
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            +$100
+                                            <span class="text-sm font-medium text-gray-900">
+                                                /person/day</span>
                                         </div>
                                     </div>
-                                    <h3
-                                        class="flex justify-center items-center font-medium text-xl"
-                                    >
-                                        <!-- modify the href below -->
-                                        <a
-                                            class="flex justify-center items-center"
-                                            href="/blog/slug"
-                                            rel="invalid url"
-                                        >
-                                            View All
-                                            <i
-                                                class="fa-solid fa-chevron-right pl-2"
-                                            ></i>
-                                        </a>
-                                    </h3>
-                                    <div></div>
-                                </article>
+                                </li>
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <i class="fas fa-award" style="color:#AD9551"></i>
 
-                                <article
-                                    class="bg-white p-6 mb-2 shadow rounded-2xl cursor-pointer border"
-                                >
-                                    <div class="relative rounded-2xl">
-                                        <img
-                                            class="w-full object-cover"
-                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div class="w-full pb-4 mb-auto">
-                                        <div class="flex items-center">
-                                            <div class="flex flex-1">
-                                                <div class="">
-                                                    <p class="text-3xl">
-                                                        Single Rooms
-                                                    </p>
-                                                    <p
-                                                        class="text-sm font-semibold"
-                                                    >
-                                                        Lorem ipsum dolor sit
-                                                        amet consectetur
-                                                        adipisicing elit.
-                                                        Numquam dolorum
-                                                        repellendus aliquid ab
-                                                        provident cum ea, hic
-                                                        maiores autem, ducimus
-                                                        voluptates, officia
-                                                        necessitatibus
-                                                        exercitationem incidunt
-                                                        cupiditate ex natus
-                                                        facilis enim?
-                                                    </p>
-                                                </div>
-                                            </div>
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Half-board(breakfast + dinner or
+                                                lunch)
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            +$120
+                                            <span class="text-sm font-medium text-gray-900">
+                                                /person/day</span>
                                         </div>
                                     </div>
-                                    <h3
-                                        class="flex justify-center items-center font-medium text-xl"
-                                    >
-                                        <!-- modify the href below -->
-                                        <a
-                                            class="flex justify-center items-center"
-                                            href="/blog/slug"
-                                            rel="invalid url"
-                                        >
-                                            View All
-                                            <i
-                                                class="fa-solid fa-chevron-right pl-2"
-                                            ></i>
-                                        </a>
-                                    </h3>
-                                    <div></div>
-                                </article>
-                                <article
-                                    class="bg-white p-6 mb-6 shadow rounded-2xl cursor-pointer border"
-                                >
-                                    <div class="relative rounded-2xl">
-                                        <img
-                                            class="w-full object-cover"
-                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div class="w-full pb-4 mb-auto">
-                                        <div class="flex items-center">
-                                            <div class="flex flex-1">
-                                                <div class="">
-                                                    <p class="text-3xl">
-                                                        Single Rooms
-                                                    </p>
-                                                    <p
-                                                        class="text-sm font-semibold"
-                                                    >
-                                                        Lorem ipsum dolor sit
-                                                        amet consectetur
-                                                        adipisicing elit.
-                                                        Numquam dolorum
-                                                        repellendus aliquid ab
-                                                        provident cum ea, hic
-                                                        maiores autem, ducimus
-                                                        voluptates, officia
-                                                        necessitatibus
-                                                        exercitationem incidunt
-                                                        cupiditate ex natus
-                                                        facilis enim?
-                                                    </p>
-                                                </div>
-                                            </div>
+                                </li>
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <i class="fas fa-award" style="color:#AD9551"></i>
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Full-board(breakfast+ dinner+
+                                                lunch)
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            $220
+                                            <span class="text-sm font-medium text-gray-900">
+                                                /person/day</span>
                                         </div>
                                     </div>
-                                    <h3
-                                        class="flex justify-center items-center font-medium text-xl"
-                                    >
-                                        <!-- modify the href below -->
-                                        <a
-                                            class="flex justify-center items-center"
-                                            href="/blog/slug"
-                                            rel="invalid url"
-                                        >
-                                            View All
-                                            <i
-                                                class="fa-solid fa-chevron-right pl-2"
-                                            ></i>
-                                        </a>
-                                    </h3>
-                                    <div></div>
-                                </article>
-                                <article
-                                    class="bg-white p-6 mb-6 shadow rounded-2xl cursor-pointer border"
-                                >
-                                    <div class="relative rounded-2xl">
-                                        <img
-                                            class="w-full object-cover"
-                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div class="w-full pb-4 mb-auto">
-                                        <div class="flex items-center">
-                                            <div class="flex flex-1">
-                                                <div class="">
-                                                    <p class="text-3xl">
-                                                        Single Rooms
-                                                    </p>
-                                                    <p
-                                                        class="text-sm font-semibold"
-                                                    >
-                                                        Lorem ipsum dolor sit
-                                                        amet consectetur
-                                                        adipisicing elit.
-                                                        Numquam dolorum
-                                                        repellendus aliquid ab
-                                                        provident cum ea, hic
-                                                        maiores autem, ducimus
-                                                        voluptates, officia
-                                                        necessitatibus
-                                                        exercitationem incidunt
-                                                        cupiditate ex natus
-                                                        facilis enim?
-                                                    </p>
-                                                </div>
-                                            </div>
+                                </li>
+                                <h2 class="mx-auto p-5 font-semibold">
+                                    Other Services
+                                </h2>
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0 mt-8">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Wellness & Spa
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            $20 /person/day
                                         </div>
                                     </div>
-                                    <h3
-                                        class="flex justify-center items-center font-medium text-xl"
-                                    >
-                                        <!-- modify the href below -->
-                                        <a
-                                            class="flex justify-center items-center"
-                                            href="/blog/slug"
-                                            rel="invalid url"
-                                        >
-                                            View All
-                                            <i
-                                                class="fa-solid fa-chevron-right pl-2"
-                                            ></i>
-                                        </a>
-                                    </h3>
-                                    <div></div>
-                                </article>
-                                <article
-                                    class="bg-white p-6 mb-6 shadow rounded-2xl cursor-pointer border"
-                                >
-                                    <div class="relative rounded-2xl">
-                                        <img
-                                            class="w-full object-cover"
-                                            src="https://images.pexels.com/photos/163097/twitter-social-media-communication-internet-network-163097.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div class="w-full pb-4 mb-auto">
-                                        <div class="flex items-center">
-                                            <div class="flex flex-1">
-                                                <div class="">
-                                                    <p class="text-3xl">
-                                                        Single Rooms
-                                                    </p>
-                                                    <p
-                                                        class="text-sm font-semibold"
-                                                    >
-                                                        Lorem ipsum dolor sit
-                                                        amet consectetur
-                                                        adipisicing elit.
-                                                        Numquam dolorum
-                                                        repellendus aliquid ab
-                                                        provident cum ea, hic
-                                                        maiores autem, ducimus
-                                                        voluptates, officia
-                                                        necessitatibus
-                                                        exercitationem incidunt
-                                                        cupiditate ex natus
-                                                        facilis enim?
-                                                    </p>
-                                                </div>
-                                            </div>
+                                </li>
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Fitness Center
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            +$15
+                                            <span class="text-sm font-medium text-gray-900">
+                                                /person/day</span>
                                         </div>
                                     </div>
-                                    <h3
-                                        class="flex justify-center items-center font-medium text-xl"
-                                    >
-                                        <!-- modify the href below -->
-                                        <a
-                                            class="flex justify-center items-center"
-                                            href="/blog/slug"
-                                            rel="invalid url"
-                                        >
-                                            View All
-                                            <i
-                                                class="fa-solid fa-chevron-right pl-2"
-                                            ></i>
-                                        </a>
-                                    </h3>
-                                    <div></div>
-                                </article>
-                            </div>
+                                </li>
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                Parking
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            +$12
+                                            <span class="text-sm font-medium text-gray-900">
+                                                /person/day</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </section>
         </section>
-    </div>
-</AuthenticatedLayout>
+    </AuthenticatedLayout>
 </template>
 
 <script setup>
 import { Link } from "@inertiajs/vue3";
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+const props = defineProps({
+    room: Object,
+});
+// to get the image :try this logic
+function getImageUrl(imagePath) {
+    // i'll create a tenary statement if-else
+    return imagePath
+        ? `/storage/${imagePath}`
+        : "https://via.placeholder.com/150";
+}
 
+async function deleteRoom() {
+    try {
+        await axios.delete(
+            `/api/rooms/${props.room.id}`
+        );
+
+        //   after delete we redirect user to  rooms page
+        Inertia.visit(route("rooms"));
+    } catch (error) {
+        console.error("Failed to delete room:", error);
+    }
+}
 </script>
 
 <style></style>

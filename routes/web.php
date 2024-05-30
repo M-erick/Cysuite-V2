@@ -51,6 +51,16 @@ Route::middleware('auth')->group(function () {
             'room' => $room,
         ]);
     })->name('roomDetails');
+
+    // route for type of rooms {Single,Double rooms}
+    Route::get('rooms/type/{id}',function($id){
+        $room = Room::find($id);
+        return Inertia::render('Room/RoomType',[
+            'room'=>$room,
+        ]);
+
+
+    })->name('roomType');
 });
 Route::middleware(['auth', 'role:guest'])->group(function () {
     Route::get('/issue', function () {
