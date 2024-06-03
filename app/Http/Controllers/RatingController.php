@@ -14,11 +14,33 @@ class RatingController extends Controller
      */
     public function index()
     {
-        //
-        $rooms = Rating::all();
-        return response()->json($rooms);
 
+        $ratings = Rating::all();
+
+
+        $groupedRatings = $ratings->groupBy('rated_user_id');
+
+
+        $averageRatings = [];
+        foreach ($groupedRatings as $ratedUserId => $userRatings) {
+            $totalRating = $userRatings->sum('rating');
+            $numberOfRatings = $userRatings->count();
+
+
+            $averageRating = $numberOfRatings > 0 ? $totalRating / $numberOfRatings : 0;
+            $formattedAverageRating = number_format($averageRating, 1);
+
+            // Store the average rating for this user
+            $averageRatings[] = [
+                'rated_user_id' => $ratedUserId,
+                'average_rating' => $formattedAverageRating
+            ];
+        }
+
+        // Return the average ratings as JSON response
+        return response()->json($averageRatings);
     }
+
 
     /**
      * Store a newly created resource in storage.
