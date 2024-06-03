@@ -100,15 +100,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="guest in guestData" :key="guest.id">
+                                <tr v-for="guest in guestData.data" :key="guest.id">
                                     <td class="py-2 px-4 border-b">{{ guest.id }}</td>
 
-                                    <td class="py-2 px-4 border-b">{{ guest.username }}</td>
-                                    <td class="py-2 px-4 border-b">{{ guest.useremail }}</td>
-                                    <td class="py-2 px-4 border-b">{{ guest.assignedRooms }}</td>
+                                    <td class="py-2 px-4 border-b">{{ guest.user.name }}</td>
+                                    <td class="py-2 px-4 border-b">{{ guest.user.email }}</td>
+                                    <td class="py-2 px-4 border-b">{{ guest.room.name }}</td>
 
                                     <td class="py-2 px-4 border-b">
-                                        {{ formatTimestamp(guest.dateAssigned) }}
+                                        {{ formatTimestamp(guest.created_at) }}
                                     </td>
                                     <td class="py-2 px-4 border-b font-bold" style="color: #046a5b">
                                         PENDING..
@@ -117,11 +117,21 @@
                             </tbody>
                         </table>
 
-                        <div class="text-right mt-4">
+                        <!-- <div class="text-right mt-4">
                             <button class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
                                 View more
                             </button>
+                        </div> -->
+
+                        <div class="flex justify-between mt-4">
+                            <button @click="prevPage" :disabled="!guestData.prev_page_url" class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
+                                Previous
+                            </button>
+                            <button @click="nextPage" :disabled="!guestData.next_page_url" class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
+                                Next
+                            </button>
                         </div>
+
                     </div>
                     <div class="mt-8 bg-white p-4 shadow rounded-lg">
                         <h2 class="text-gray-500 text-lg font-semibold pb-4" style="color: #046a5b">
@@ -230,9 +240,16 @@ import axios from "axios";
 
 const totalUsers = ref(0);
 const availableRooms = ref(0);
-const guestData = ref([]);
+// const guestData = ref([]);
 const adminData = ref([]);
 const adminRatingData = ref([]);
+const guestData = ref({
+    data: [],
+    current_page: 1,
+    last_page: 1,
+    next_page_url: null,
+    prev_page_url: null,
+});
 
 const { props } = usePage();
 const currentUser = props.auth.user;
@@ -242,7 +259,7 @@ const isSupervisorAdmin = ref(false);
 // check role_id :if is supervisor_admin
 isSupervisorAdmin.value = currentUser.role_id === 3 ? true : false;
 
-const fetchuser = async () => {
+const fetchTotalUsers = async () => {
     try {
         const response = await axios.get("/api/users");
         totalUsers.value = response.data.length;
@@ -252,7 +269,7 @@ const fetchuser = async () => {
 };
 
 // fetch available rooms
-const fetchRoom = async () => {
+const fetchRoomDetails = async () => {
     try {
         const response = await axios.get("/api/rooms");
         const roomData = response.data;
@@ -264,30 +281,35 @@ const fetchRoom = async () => {
         console.error("error fetching available rooms", error);
     }
 };
-const fetchGuests = async () => {
+const fetchGuestsDetails = async (page = 1) => {
     try {
-        const response = await axios.get("/api/guest_rooms");
-        const guestRoomData = response.data;
-        for (const guest of guestRoomData) {
-            const guestBooking = await axios.get(`/api/users/${guest.user_id}`);
-            //  user's role and assign it to admin object
-            guest.username = guestBooking.data.name;
-            guest.useremail = guestBooking.data.email;
-            guest.dateAssigned = guestBooking.data.created_at;
+        const response = await axios.get(`/api/guest_rooms?page=${page}`);
+        guestData.value = response.data;
 
-            const assignedRooms = await axios.get(`/api/rooms/${guest.room_id}`);
-            guest.assignedRooms = assignedRooms.data.name;
-        }
-        // console.log(guestRoomData);
+        console.log(guestData.value );
 
-        guestData.value = guestRoomData;
+
+
     } catch (error) {
-        console.error("error fetching admin details", error);
+        console.error("Error fetching guest details", error);
+    }
+};
+
+// pagination using the previous and next button
+const nextPage = () => {
+    if (guestData.value.next_page_url) {
+        fetchGuestsDetails(guestData.value.current_page + 1);
+    }
+};
+
+const prevPage = () => {
+    if (guestData.value.prev_page_url) {
+        fetchGuestsDetails(guestData.value.current_page - 1);
     }
 };
 
 // fetch admin details:here i used table admin_rooms as pivot table,implement the same Idea in guests
-const fetchAdmins = async () => {
+const fetchAdminsDetails = async () => {
     try {
         const response = await axios.get("/api/admin_rooms");
         // adminData.value = response.data;
@@ -341,10 +363,10 @@ const formatTimestamp = (timestamp) => {
 };
 
 onMounted(async () => {
-    await fetchuser();
-    await fetchRoom();
-    await fetchAdmins();
-    await fetchGuests();
+    await fetchTotalUsers();
+    await fetchRoomDetails();
+    await fetchAdminsDetails();
+    await fetchGuestsDetails();
     await averageAdminRating();
 });
 </script>
