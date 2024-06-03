@@ -77,7 +77,7 @@ const actions = {
         console.error("error fetching admin ratings", error);
       }
     },
-    
+
   };
 
 
@@ -86,5 +86,4 @@ export default {
     state,
     mutations,
     actions,
-    getters,
 }
