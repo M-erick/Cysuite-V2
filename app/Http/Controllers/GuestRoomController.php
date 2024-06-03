@@ -12,7 +12,7 @@ class GuestRoomController extends Controller
      */
     public function index()
     {
-        $guestRooms = GuestRoom::all();
+        $guestRooms = GuestRoom:: with(['room','user'])->paginate(10);
         return response()->json($guestRooms);
     }
 
