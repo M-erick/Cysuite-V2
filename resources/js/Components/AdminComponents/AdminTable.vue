@@ -43,11 +43,11 @@
         </table>
         <div class="flex justify-between mt-4">
             <button @click="prevOfAdminPage" :disabled="!adminData.prev_page_url"
-                class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
+                class=" hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
                 Previous
             </button>
             <button @click="nextOfAdminPage" :disabled="!adminData.next_page_url"
-                class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
+                class=" hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
                 Next
             </button>
         </div>
@@ -110,23 +110,6 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped>
-table {
-    border-collapse: collapse;
-}
+<style>
 
-th,
-td {
-    padding: 0.5rem 1rem;
-    border-bottom: 1px solid #e2e8f0;
-    text-align: left;
-}
-
-th {
-    background-color: #046a5b;
-}
-
-button {
-    background-color: #046a5b;
-}
 </style>
