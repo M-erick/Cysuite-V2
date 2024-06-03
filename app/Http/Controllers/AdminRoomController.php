@@ -12,7 +12,8 @@ class AdminRoomController extends Controller
      */
     public function index()
     {
-        $adminRooms = AdminRoom::all();
+        // EagerLoading
+        $adminRooms = AdminRoom::with(['room','user'])->paginate(10);
         return response()->json($adminRooms);
     }
 
