@@ -6,43 +6,9 @@
 
             <!-- SIDEBAR:will add my  inertia Links here-->
             <div class="flex-1 flex flex-wrap">
-                <div class="p-2 bg-white w-full md:w-60 flex flex-col md:flex" id="sideNav">
-                    <nav>
+               <!-- SideBar  component -->
+                <Sidebar/>
 
-
-                        <Link :href="route('panel')"
-                            class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white">
-                        <i class="fas fa-home mr-2" style="color: #046a5b"></i>Admin Panel
-                        </Link>
-
-                        <!-- :href="route('panel')"  -->
-
-                        <Link v-if="isSupervisorAdmin" :href="route('admins.create')"
-                            class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white">
-                        <i class="fas fa-file-alt mr-2" style="color: #046a5b"></i>Assign Admin
-                        </Link>
-
-                        <Link :href="route('guest.assignRoom')"
-                            class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white">
-                        <i class="fas fa-users mr-2" style="color: #046a5b"></i>Assign Guest Room
-                        </Link>
-
-                        <Link :href="route('rooms.create')"
-                            class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white">
-                        <i class="fa-solid fa-house mr-2" style="color: #046a5b"></i>Add Room
-                        </Link>
-
-                        <Link :href="route('response')"
-                            class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white">
-                        <i class="fas fa-exchange-alt mr-2" style="color: #046a5b"></i>Response
-                        </Link>
-
-                        <Link :href="route('register')"
-                            class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white">
-                        <i class="fa-regular fa-address-card mr-2" style="color: #046a5b"></i>Register
-                        </Link>
-                    </nav>
-                </div>
 
                 <div class="flex-1 p-4 w-full md:w-1/2">
                     <div class="mt-8 flex flex-wrap space-x-0 space-y-2 md:space-x-4 md:space-y-0">
@@ -70,165 +36,17 @@
                     </div>
 
                     <!-- Recent Guest Table:loop through database the first 5 : or i'll use pagination(5) in laravel -->
-                    <div class="mt-8 bg-white p-4 shadow rounded-lg">
-                        <h2 class="text-lg font-semibold pb-4" style="color: #046a5b">
-                            Recent Guest
-                        </h2>
-                        <div class="my-1"></div>
-                        <hr class="font-semibold mb-5 mt-1" style="border-color: #046a5b" />
-                        <table class="w-full table-auto text-sm">
-                            <thead>
-                                <tr class="text-sm leading-normal">
-                                    <th class="py-2 px-4 font-bold uppercase text-white text-sm border-b">
-                                        ID
-                                    </th>
-                                    <th class="py-2 px-4 font-bold uppercase text-white text-sm border-b">
-                                        Name
-                                    </th>
-                                    <th class="py-2 px-4 font-bold uppercase text-white text-sm border-b">
-                                        Email
-                                    </th>
-                                    <th class="py-2 px-4 font-bold uppercase text-white text-sm border-b">
-                                        Room
-                                    </th>
-                                    <th class="py-2 px-4 font-bold uppercase text-white text-sm border-b">
-                                        Date In
-                                    </th>
-                                    <th class="py-2 px-4 font-bold uppercase text-white text-sm border-b">
-                                        Date Out
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="guest in guestData.data" :key="guest.id">
-                                    <td class="py-2 px-4 border-b">{{ guest.id }}</td>
 
-                                    <td class="py-2 px-4 border-b">{{ guest.user.name }}</td>
-                                    <td class="py-2 px-4 border-b">{{ guest.user.email }}</td>
-                                    <td class="py-2 px-4 border-b">{{ guest.room.name }}</td>
-
-                                    <td class="py-2 px-4 border-b">
-                                        {{ formatTimestamp(guest.created_at) }}
-                                    </td>
-                                    <td class="py-2 px-4 border-b font-bold" style="color: #046a5b">
-                                        PENDING..
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <!-- <div class="text-right mt-4">
-                            <button class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
-                                View more
-                            </button>
-                        </div> -->
-
-                        <div class="flex justify-between mt-4">
-                            <button @click="prevPage" :disabled="!guestData.prev_page_url" class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
-                                Previous
-                            </button>
-                            <button @click="nextPage" :disabled="!guestData.next_page_url" class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
-                                Next
-                            </button>
-                        </div>
-
-                    </div>
-                    <div class="mt-8 bg-white p-4 shadow rounded-lg">
-                        <h2 class="text-gray-500 text-lg font-semibold pb-4" style="color: #046a5b">
-                            Admins
-                        </h2>
-                        <div class="my-1"></div>
-                        <hr class="font-semibold mb-5 mt-1" style="border-color: #046a5b" />
-                        <table class="w-full table-auto text-sm">
-                            <thead>
-                                <tr class="text-sm leading-normal text-white">
-                                    <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        ID
-                                    </th>
-                                    <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        Name
-                                    </th>
-                                    <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        email
-                                    </th>
-                                    <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        Room
-                                    </th>
-                                    <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        Date
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="admin in adminData.data" :key="admin.id">
-                                    <td class="py-2 px-4 border-b">{{ admin.id }}</td>
-
-                                    <td class="py-2 px-4 border-b">{{ admin.user.name }}</td>
-                                    <td class="py-2 px-4 border-b">{{ admin.user.email }}</td>
-
-                                    <td class="py-2 px-4 border-b">
-                                        {{ admin.room.name }}
-                                    </td>
-                                    <td class="py-2 px-4 border-b">
-                                        {{ formatTimestamp(admin.created_at) }}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="flex justify-between mt-4">
-                            <button @click="prevOfAdminPage" :disabled="!adminData.prev_page_url" class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
-                                Previous
-                            </button>
-                            <button @click="nextOfAdminPage" :disabled="!adminData.next_page_url" class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
-                                Next
-                            </button>
-                        </div>
+                    <RecentGuestTable/>
 
 
-                    </div>
+                    <!-- recent admin components -->
+                    <AdminTable/>
 
-                    <div class="mt-8 bg-white p-4 shadow rounded-lg">
-                        <h2 class="text-gray-500 text-lg font-semibold pb-4" style="color: #046a5b">
-                            Average Admin Rating
-                        </h2>
-                        <div class="my-1"></div>
-                        <hr class="font-semibold mb-5 mt-1" style="border-color: #046a5b" />
-                        <table class="w-full table-auto text-sm">
-                            <thead>
-                                <tr class="text-sm leading-normal text-white">
-                                    <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        ID
-                                    </th>
-                                    <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        Name
-                                    </th>
+                    <!-- Admin Average table -->
+                    <AdminAverageRating/>
 
-                                    <th class="py-2 px-4 font-bold uppercase text-sm border-b">
-                                        Rating
-                                    </th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="rating in adminRatingData" :key="rating.id">
-                                    <td class="py-2 px-4 border-b">{{ rating.id }}</td>
-
-                                    <td class="py-2 px-4 border-b">{{ rating.username }}</td>
-
-                                    <td class="py-2 px-4 border-b">
-                                        {{ rating.rating }}
-                                    </td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="text-right mt-4">
-                            <button class=" hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
-                                View more
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -242,25 +60,16 @@ import { usePage } from "@inertiajs/vue3";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
+// defined components
+import AdminTable from "@/Components/AdminComponents/AdminTable.vue";
+import RecentGuestTable from "@/Components/AdminComponents/RecentGuestTable.vue";
+import Sidebar from "@/Components/AdminComponents/Sidebar.vue";
+import AdminAverageRating from "@/Components/AdminComponents/AdminAverageRating.vue";
 const totalUsers = ref(0);
 const availableRooms = ref(0);
 // const guestData = ref([]);
-const adminData = ref({
-    data: [],
-    current_page: 1,
-    last_page: 1,
-    next_page_url: null,
-    prev_page_url: null,
 
-});
-const adminRatingData = ref([]);
-const guestData = ref({
-    data: [],
-    current_page: 1,
-    last_page: 1,
-    next_page_url: null,
-    prev_page_url: null,
-});
+
 
 
 const { props } = usePage();
@@ -293,100 +102,14 @@ const fetchRoomDetails = async () => {
         console.error("error fetching available rooms", error);
     }
 };
-const fetchGuestsDetails = async (page = 1) => {
-    try {
-        const response = await axios.get(`/api/guest_rooms?page=${page}`);
-        guestData.value = response.data;
-
-        console.log(guestData.value );
-
-
-
-    } catch (error) {
-        console.error("Error fetching guest details", error);
-    }
-};
-
-// pagination using the previous and next button
-const nextPage = () => {
-    if (guestData.value.next_page_url) {
-        fetchGuestsDetails(guestData.value.current_page + 1);
-    }
-};
-
-const prevPage = () => {
-    if (guestData.value.prev_page_url) {
-        fetchGuestsDetails(guestData.value.current_page - 1);
-    }
-};
-
-// fetch admin details:here i used table admin_rooms as pivot table,implement the same Idea in guests
-const fetchAdminsDetails = async (page = 1) => {
-    try {
-        const response = await axios.get(`/api/admin_rooms?page=${page}`);
-        // adminData.value = response.data;
-        adminData.value = response.data;
-
-
-    } catch (error) {
-        console.error("error fetching admin details", error);
-    }
-};
-
-const nextOfAdminPage = () => {
-    if (adminData.value.next_page_url) {
-        fetchAdminsDetails(adminData.value.current_page + 1);
-    }
-};
-
-const prevOfAdminPage = () => {
-    if (adminData.value.prev_page_url) {
-        fetchAdminsDetails(adminData.value.current_page - 1);
-    }
-};
-
-// Fetch Average Admin Rating
-const averageAdminRating = async () => {
-    try {
-        const response = await axios.get("/api/ratings");
-        const guestRoomData = response.data;
-        for (const guest of guestRoomData) {
-            const guestBooking = await axios.get(`/api/users/${guest.rated_user_id}`);
-            //  user's role and assign it to admin object
-            guest.username = guestBooking.data.name;
-
-
-        }
-        console.log(guestRoomData);
-
-        adminRatingData.value = guestRoomData;
-    } catch (error) {
-        console.error("error fetching admin details", error);
-    }
-};
-
-const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    const options = {
-        hour: "numeric",
-        minute: "numeric",
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-    };
-    return date.toLocaleString(undefined, options);
-};
 
 onMounted(async () => {
     await fetchTotalUsers();
     await fetchRoomDetails();
-    await fetchAdminsDetails();
-    await fetchGuestsDetails();
-    await averageAdminRating();
 });
 </script>
 
-<style scoped>
+<style>
 table {
     border-collapse: collapse;
 }
