@@ -160,27 +160,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="admin in adminData" :key="admin.id">
+                                <tr v-for="admin in adminData.data" :key="admin.id">
                                     <td class="py-2 px-4 border-b">{{ admin.id }}</td>
 
-                                    <td class="py-2 px-4 border-b">{{ admin.username }}</td>
-                                    <td class="py-2 px-4 border-b">{{ admin.useremail }}</td>
+                                    <td class="py-2 px-4 border-b">{{ admin.user.name }}</td>
+                                    <td class="py-2 px-4 border-b">{{ admin.user.email }}</td>
 
                                     <td class="py-2 px-4 border-b">
-                                        {{ admin.assignedRooms }}
+                                        {{ admin.room.name }}
                                     </td>
                                     <td class="py-2 px-4 border-b">
-                                        {{ formatTimestamp(admin.dateAssigned) }}
+                                        {{ formatTimestamp(admin.created_at) }}
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-
-                        <div class="text-right mt-4">
-                            <button class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
-                                View more
+                        <div class="flex justify-between mt-4">
+                            <button @click="prevOfAdminPage" :disabled="!adminData.prev_page_url" class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
+                                Previous
+                            </button>
+                            <button @click="nextOfAdminPage" :disabled="!adminData.next_page_url" class="bg-green-900 hover:bg-green-900 text-white font-semibold py-2 px-4 rounded">
+                                Next
                             </button>
                         </div>
+
+
                     </div>
 
                     <div class="mt-8 bg-white p-4 shadow rounded-lg">
@@ -241,7 +245,14 @@ import axios from "axios";
 const totalUsers = ref(0);
 const availableRooms = ref(0);
 // const guestData = ref([]);
-const adminData = ref([]);
+const adminData = ref({
+    data: [],
+    current_page: 1,
+    last_page: 1,
+    next_page_url: null,
+    prev_page_url: null,
+
+});
 const adminRatingData = ref([]);
 const guestData = ref({
     data: [],
@@ -250,6 +261,7 @@ const guestData = ref({
     next_page_url: null,
     prev_page_url: null,
 });
+
 
 const { props } = usePage();
 const currentUser = props.auth.user;
@@ -309,24 +321,27 @@ const prevPage = () => {
 };
 
 // fetch admin details:here i used table admin_rooms as pivot table,implement the same Idea in guests
-const fetchAdminsDetails = async () => {
+const fetchAdminsDetails = async (page = 1) => {
     try {
-        const response = await axios.get("/api/admin_rooms");
+        const response = await axios.get(`/api/admin_rooms?page=${page}`);
         // adminData.value = response.data;
-        const adminRoomData = response.data;
-        for (const admin of adminRoomData) {
-            const adminRole = await axios.get(`/api/users/${admin.user_id}`);
-            //  user's role and assign it to admin object
-            admin.username = adminRole.data.name;
-            admin.useremail = adminRole.data.email;
-            admin.dateAssigned = adminRole.data.created_at;
+        adminData.value = response.data;
 
-            const assignedRooms = await axios.get(`/api/rooms/${admin.room_id}`);
-            admin.assignedRooms = assignedRooms.data.name;
-        }
-        adminData.value = adminRoomData;
+
     } catch (error) {
         console.error("error fetching admin details", error);
+    }
+};
+
+const nextOfAdminPage = () => {
+    if (adminData.value.next_page_url) {
+        fetchAdminsDetails(adminData.value.current_page + 1);
+    }
+};
+
+const prevOfAdminPage = () => {
+    if (adminData.value.prev_page_url) {
+        fetchAdminsDetails(adminData.value.current_page - 1);
     }
 };
 
