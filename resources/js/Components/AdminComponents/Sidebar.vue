@@ -16,12 +16,12 @@
             <i class="fas fa-file-alt mr-2" style="color: #046a5b"></i>Assign Admin
             </Link>
 
-            <Link :href="route('guest.assignRoom')"
+            <Link v-if="isSupervisorAdmin" :href="route('guest.assignRoom')"
                 class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white">
             <i class="fas fa-users mr-2" style="color: #046a5b"></i>Assign Guest Room
             </Link>
 
-            <Link :href="route('rooms.create')"
+            <Link v-if="isSupervisorAdmin" :href="route('rooms.create')"
                 class="block text-gray-500 py-2.5 px-4 my-4 rounded hover:bg-green-900 hover:text-white">
             <i class="fa-solid fa-house mr-2" style="color: #046a5b"></i>Add Room
             </Link>
