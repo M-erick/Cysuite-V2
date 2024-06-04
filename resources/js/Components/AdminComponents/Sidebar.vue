@@ -41,7 +41,18 @@
 
 <script setup>
 import { Link } from "@inertiajs/vue3";
+import {usePage} from "@inertiajs/vue3";
+import { ref} from "vue";
+
+
+const {props} = usePage();
+
+const  currentUser = props.auth.user;
+const isSupervisorAdmin = ref(false);
+// check role_id :if is supervisor_admin
+
+isSupervisorAdmin.value = currentUser.role_id === 3 ? true: false;
+
 
 </script>
 
-<style></style>
