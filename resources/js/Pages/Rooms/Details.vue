@@ -46,21 +46,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="flex justify-end space-x-4 mt-4">
-                        <Link
-                            :href="route('rooms.edit', { id: room.id })"
-                            class="px-4 py-2 bg-blue-500 text-white rounded-lg"
-                        >
-                            Update
-                        </Link>
-                        <button
-                            @click="deleteRoom"
-                            class="px-4 py-2 bg-red-500 text-white rounded-lg"
-                        >
-                            Delete
-                        </button>
-                    </div> -->
                 </article>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center items-center px-2 mx-auto">
                     <article class="mb-6 shadow">
@@ -75,132 +60,25 @@
                             style="color:#AD9551; font-family: 'Cinzel Decorative',serif ;font-style: normal;font-weight:700;font-size: 20px;">
                             {{ room.type }}
                         </p>
-                        <FeaturesAndAmenities/>
+                        <FeaturesAndAmenities />
 
                     </article>
                 </div>
 
-                <!-- dummy form details:update on this later DevEric -->
                 <!-- component -->
+                <RoomAdditionalDetails />
 
-                <div class="max-w-2xl m-4">
-                    <h3 class="text-3xl font-medium mb-3">
-                        Additional Services
-                    </h3>
-                    <div class="p-4 max-w-md bg-white border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                        <div class="flow-root">
-                            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                                <li class="py-3 sm:py-4">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="flex-1 min-w-0">
-                                            <i class="fas fa-award" style="color:#AD9551"></i>
-
-                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Breakfast
-                                            </p>
-                                        </div>
-                                        <div
-                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            +$100
-                                            <span class="text-sm font-medium text-gray-900">
-                                                /person/day</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="py-3 sm:py-4">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="flex-1 min-w-0">
-                                            <i class="fas fa-award" style="color:#AD9551"></i>
-
-                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Half-board(breakfast + dinner or
-                                                lunch)
-                                            </p>
-                                        </div>
-                                        <div
-                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            +$120
-                                            <span class="text-sm font-medium text-gray-900">
-                                                /person/day</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="py-3 sm:py-4">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="flex-1 min-w-0">
-                                            <i class="fas fa-award" style="color:#AD9551"></i>
-                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Full-board(breakfast+ dinner+
-                                                lunch)
-                                            </p>
-                                        </div>
-                                        <div
-                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            $220
-                                            <span class="text-sm font-medium text-gray-900">
-                                                /person/day</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <h2 class="mx-auto p-5 font-semibold">
-                                    Other Services
-                                </h2>
-                                <li class="py-3 sm:py-4">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="flex-1 min-w-0 mt-8">
-                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Wellness & Spa
-                                            </p>
-                                        </div>
-                                        <div
-                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            $20 /person/day
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="py-3 sm:py-4">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Fitness Center
-                                            </p>
-                                        </div>
-                                        <div
-                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            +$15
-                                            <span class="text-sm font-medium text-gray-900">
-                                                /person/day</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="py-3 sm:py-4">
-                                    <div class="flex items-center space-x-4">
-                                        <div class="flex-1 min-w-0">
-                                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                                Parking
-                                            </p>
-                                        </div>
-                                        <div
-                                            class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            +$12
-                                            <span class="text-sm font-medium text-gray-900">
-                                                /person/day</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </section>
         </section>
     </AuthenticatedLayout>
 </template>
 
 <script setup>
-import { Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import FeaturesAndAmenities from '@/Components/RoomComponents/ FeaturesAndAmenities.vue';
+import RoomAdditionalDetails from '@/Components/RoomComponents/RoomAdditionalDetails.vue';
+
+
 const props = defineProps({
     room: Object,
 });
@@ -211,19 +89,5 @@ function getImageUrl(imagePath) {
         ? `/storage/${imagePath}`
         : "https://via.placeholder.com/150";
 }
-
-async function deleteRoom() {
-    try {
-        await axios.delete(
-            `/api/rooms/${props.room.id}`
-        );
-
-        //   after delete we redirect user to  rooms page
-        Inertia.visit(route("rooms"));
-    } catch (error) {
-        console.error("Failed to delete room:", error);
-    }
-}
 </script>
 
-<style></style>
