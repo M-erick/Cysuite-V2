@@ -3,9 +3,10 @@
 
         <div class="relative pt-2 lg:pt-2 ">
 
-           <Carousel/>
+            <Carousel />
             <article class="bg-white  p-6  ">
                 <div class=" w-full pb-4 mb-auto">
+                    <!-- This component should not be static ,update its functionality -->
                     <div class="flex items-center">
 
                         <div class="flex-1">
@@ -31,7 +32,7 @@
             <div class="w-full bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
                 <div class="w-12/12 mx-auto rounded-2xl bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
-                        <RoomCard :rooms="rooms" />
+                        <RoomCard  />
                     </div>
                 </div>
             </div>
@@ -41,28 +42,8 @@
 
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { ref, onMounted } from 'vue';
 import RoomCard from '@/Components/RoomComponents/RoomCard.vue';
 import Carousel from '@/Components/RoomComponents/Carousel.vue';
-import axios from 'axios';
-
-onMounted(() => {
-    fetchRooms();
-});
-
-// room records
-const rooms = ref([]);
-
-const fetchRooms = async () => {
-    try {
-
-        // default routes :http://lr-cysuites.test/api/rooms
-        const response = await axios.get('/api/rooms');
-        rooms.value = response.data;
-    } catch (error) {
-        console.error('Error fetching rooms:', error);
-    }
-};
 </script>
 
 
