@@ -48,11 +48,7 @@
                     </div>
                 </article>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center items-center px-2 mx-auto">
-                    <article class="mb-6 shadow">
-                        <div class="relative h-full w-full">
-                            <img class="h-full w-full object-cover" :src="getImageUrl(room.image)" alt="" />
-                        </div>
-                    </article>
+                   <RoomSpecificCarousel :room="room"/>
                     <!-- create a grid inside the the article below to contain room feature amenities  -->
                     <article class="bg-white p-6 mb-6">
 
@@ -77,7 +73,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import FeaturesAndAmenities from '@/Components/RoomComponents/ FeaturesAndAmenities.vue';
 import RoomAdditionalDetails from '@/Components/RoomComponents/RoomAdditionalDetails.vue';
-
+import RoomSpecificCarousel from '@/Components/RoomComponents/RoomSpecificCarousel.vue';
 
 const props = defineProps({
     room: Object,
