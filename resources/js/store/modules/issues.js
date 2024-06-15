@@ -54,7 +54,7 @@ const actions = {
                 issueId: issue.id,
                 user: response.data,
             });
-            console.log(`Fetched User for Issue ${issue.id}:`, response.data);
+            // console.log(`Fetched User for Issue ${issue.id}:`, response.data);
         } catch (error) {
             console.error('Error fetching user:', error);
         }
