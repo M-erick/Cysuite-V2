@@ -4,8 +4,9 @@
         <div class="container mx-auto shadow-lg rounded-lg h-screen">
             <!-- Chatting -->
             <div class="flex flex-row justify-between bg-white h-full">
-                <!-- chat list: i'll loop through issues and response from my issue  and Response table -->
+
                 <div class="flex flex-col w-2/5 border-r-2 overflow-y-auto">
+
                     <div class="border-b-2 py-4 px-2 flex justify-between" style="background-color: #AD9551">
                         <span class="text-white text-2xl"
                             style=" font-family: 'Roboto Serif', serif;font-style: normal;font-weight:400;">Issues</span>
@@ -14,86 +15,19 @@
                             Create Issue <i class="fas fa-plus-circle text-white"></i>
                         </span>
                     </div>
+                    <IssuePanel :userFilteredIssues="userFilteredIssues" />
 
-                    <!-- user list: Fetch the user details from the database -->
-                    <div v-for="issue in userFilteredIssues" :key="issue.id"
-                        class="flex flex-row py-4 px-2 items-center border-b-2 cursor-pointer"
-                        @click="selectIssue(issue)" :class="{
-                            'selected-issue  ': isSelected(issue),
-                        }">
-                        <!-- <div class="w-1/4 mr-2">
-                            <div
-                                class="h-12 md:h-16 w-12 md:w-16 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                                <i class="fa-solid fa-user text-2xl md:text-4xl"></i>
-                            </div>
-                        </div> -->
-                        <div class="w-full ml-3">
-                            <div class="text-lg font-semibold"
-                                style="font-family: 'Roboto Serif', serif; font-style: normal; font-weight: 500;">
-                                {{ issue.title }}
-                            </div>
-                            <div class="text-gray-800"
-                                style="font-family: 'Roboto Serif', serif; font-style: normal; font-weight: 400;">
-                                {{ issue.description }}
-                            </div>
-                            <div  class="text-semibold " style="text-align: right;  margin-top: 0.5rem; color:#AD9551; ">
-                                {{ issue.status }}
-                            </div>
-                            <div style="text-align: right; font-size: 0.75rem; margin-top: 0.5rem; color: #6b7280;">
-                                {{ formatTimestamp(issue.created_at) }}
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
+
 
                 <!-- end chat list -->
                 <!-- message -->
-                <div class="w-full px-5 flex flex-col justify-between">
+                <div class="w-full h-full px-5 flex flex-col justify-between">
                     <div v-if="selectedIssue" class="flex flex-col mt-5">
-                        <div v-for="response in responses" :key="response.id" :class="{
-                                'justify-end':
-                                    response.user_id === currentUser.id,
-                                'justify-start':
-                                    response.user_id !== currentUser.id,
-                            }" class="flex mb-4">
-                            <span>@UserID::<span class="font-semibold">{{
-                                    response.user_id
-                                    }}</span></span>
-                            <div
-                                class="relative mr-2 py-3 px-4 bg-green-900 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
-                                {{ response.response_text }}
-                                <span
-                                    class="absolute bottom-0 left-0 text-xs text-gray-400 transform translate-y-full">{{
-                                    formatTimestamp(response.created_at)
-                                    }}</span>
-                            </div>
-                            <i :class="['fa-solid fa-check text-white py-2 px-4 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl m-3', {'bg-green-900': !isIssueClosed, 'bg-gray-500': isIssueClosed}]"
-                                @click="markAsResolved(response.id)">
-                            </i>
-
-
-                            <select v-if="!isIssueClosed" @change="(event) => rateResponse(event.target.value, response.id)">
-                                <option disabled value="">
-                                    Rate the Response
-                                </option>
-                                <option v-for="n in 5" :key="n" :value="n">
-                                    {{ n }}
-                                </option>
-                            </select>
-                        </div>
+                        <IssueAndResponseChat />
                         <div class="flex-grow"></div>
-                        <div class="py-5" v-if="showResponseForm">
 
-                            <form @submit.prevent="submitResponse">
-                                <input v-model="newResponse" class="w-full bg-white py-5 px-3 rounded-xl" type="text"
-                                    placeholder="Type your message here..." />
-                                <!-- Button to submit the response -->
-                                <button type="submit" class=" text-white py-2 px-4 rounded mt-3">Submit</button>
-                            </form>
-                        </div>
-
-                        <!-- response part:loop through the response  and replies-->
+                        <ResponseForm />
                     </div>
                     <div v-else class="flex justify-center items-center h-full">
                         <p class="text-gray-500">
@@ -101,16 +35,8 @@
                         </p>
                     </div>
 
-                    <div class="py-5" v-if="showNewIssue">
-                        <form @submit.prevent="submitIssue">
-                            <input v-model="newIssueTitle" class=" bg-white py-5 px-3 rounded-xl" type="text"
-                                placeholder="Title" />
-                            <input v-model="newIssueDescription" class="w-full bg-white py-5 px-3 rounded-xl mt-2"
-                                type="text" placeholder="Description" />
-                            <!-- Button to submit the issue -->
-                            <button type="submit" class="text-white py-2 px-4 rounded mt-3">Submit</button>
-                        </form>
-                    </div>
+                    <IssueInputForm :showNewIssue="showNewIssue" />
+
                     <div class="py-5">
 
                     </div>
@@ -124,161 +50,39 @@
 import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import { usePage } from "@inertiajs/vue3";
-import axios from "axios";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import IssuePanel from '@/Components/IssueComponent/IssuePanel.vue';
+import IssueInputForm from '@/Components/IssueComponent/IssueInputForm.vue';
+import IssueAndResponseChat from '@/Components/IssueComponent/IssueAndResponseChat.vue';
+import ResponseForm from '@/Components/IssueComponent/ResponseForm.vue';
 
 const store = useStore();
 const { props } = usePage();
 const currentUser = props.auth.user;
-
-const newIssueTitle = ref('');
-const newIssueDescription = ref('');
-const searchQuery = ref("");
-const selectedIssueId = ref(null);
-const newResponse = ref("");
 const showNewIssue = ref(false);
 const showResponseForm = ref(true);
-
-const toggleForms = () => {
-    showNewIssue.value = !showNewIssue.value;
-    showResponseForm.value = !showResponseForm.value;
-    if(showNewIssue.value){
-        store.commit('issues/setSelectedIssue', null);
-    }
-};
-// const toggleForms = () => {
-//     showNewIssue.value = !showNewIssue.value;
-//     showResponseForm.value = !showResponseForm.value;
-
-//     // Clear the selected issue when toggling forms
-//     if (!showNewIssue.value) {
-//         store.commit('issues/setSelectedIssue', null);
-//     }
-// };
 
 // Computed properties
 const issues = computed(() => store.state.issues.issues);
 const selectedIssue = computed(() => store.state.issues.selectedIssue);
-const responses = computed(() => store.state.issues.responses);
 
-// check if issue has being resloved
-const isIssueClosed = computed(() => selectedIssue.value && selectedIssue.value.status === 'closed');
 
 // Fetch issues on component mount
 onMounted(() => {
     store.dispatch("issues/fetchIssues");
 });
 
-
-
-const selectIssue = async (issue) => {
-    store.commit("issues/setSelectedIssue", issue);
-    selectedIssueId.value = issue.id;
-    await store.dispatch("issues/fetchIssueResponses", issue.id);
-};
-
-const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    const options = {
-        hour: "numeric",
-        minute: "numeric",
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-    };
-    return date.toLocaleString(undefined, options);
-};
-
-const isSelected = (issue) => {
-    return issue.id === selectedIssueId.value;
-};
-
-const submitIssue = async () => {
-  try {
-    await axios.post(`/api/issues`, {
-    user_id:currentUser.id,
-      title: newIssueTitle.value,
-      description: newIssueDescription.value,
-      status: 'open', //  new issues will be  open by default
-    });
-    newIssueTitle.value = '';
-    newIssueDescription.value = '';
-    await store.dispatch('issues/fetchIssues');
-  } catch (error) {
-    console.error('Error submitting issue:', error);
-  }
-};
-const submitResponse = async () => {
-  try {
-    await axios.post(`/api/issues/${selectedIssue.value.id}/responses`, {
-      response_text: newResponse.value,
-      user_id: currentUser.id,
-      issue_id: selectedIssue.value.id,
-    });
-    newResponse.value = '';
-    await store.dispatch('issues/fetchIssueResponses', selectedIssue.value.id);
-  } catch (error) {
-    console.error('Error submitting response:', error);
-  }
+const toggleForms = () => {
+    showNewIssue.value = !showNewIssue.value;
+    showResponseForm.value = !showResponseForm.value;
+    if (showNewIssue.value) {
+        store.commit('issues/setSelectedIssue', null);
+    }
 };
 
 // get filtered  issues based on current user
 const userFilteredIssues = computed(() => {
-  return issues.value.filter((issue) => issue.user_id === currentUser.id);
+    return issues.value.filter((issue) => issue.user_id === currentUser.id);
 });
 
-
-//  mark issue as resolve
-const markAsResolved = async (responseId) => {
-  try {
-    await axios.put(`/api/issues/${selectedIssue.value.id}`, {
-        user_id: currentUser.id,
-        title: selectedIssue.value.title,
-        description: selectedIssue.value.description,
-         status: 'closed',
-    });
-    await store.dispatch('issues/fetchIssues');
-    await store.dispatch('issues/fetchIssueResponses', selectedIssue.value.id);
-  } catch (error) {
-    console.error('Error marking issue as resolved:', error);
-  }
-};
-
-
-const rateResponse = async (rating, responseId) => {
-  const response = responses.value.find(resp => resp.id === responseId);
-  if (!response) {
-    console.error('Response not found');
-    return;
-  }
-
-  try {
-    await axios.post(`/api/ratings`, {
-      user_id: currentUser.id,
-      rated_user_id: response.user_id,
-      rating: rating,
-    });
-  } catch (error) {
-    console.error('Error rating response:', error);
-  }
-};
 </script>
-
-<style scoped>
-.selected-issue {
-    /* background-color: #046a5b; */
-    border-bottom-width: 6px;
-    border-left-width: 6px;
-    border-color: #AD9551;
-}
-button {
-    background-color: #046a5b;
-}
-.resolved-icon {
-    border: 1px solid #046a5b;
-    background-color: #046a5b;
-    color: white;
-    border-radius: 1rem;
-    padding: 0.5rem;
-}
-</style>
