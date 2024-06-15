@@ -1,9 +1,6 @@
 <template>
 
     <!-- chat list: i'll loop through issues and response from my issue  and Response table -->
-
-
-
         <!-- user list: Fetch the user details from the database -->
         <div v-for="issue in userFilteredIssues" :key="issue.id"
             class="flex flex-row py-4 px-2 items-center border-b-2 cursor-pointer" @click="selectIssue(issue)" :class="{
@@ -36,17 +33,12 @@ import { useStore } from "vuex";
 
 const store = useStore();
 const selectedIssueId = ref(null);
-const showNewIssue = ref(false);
-const showResponseForm = ref(true);
 
 const { userFilteredIssues } = defineProps({
     userFilteredIssues: {
         required: true
     }
 });
-
-
-
 
 const selectIssue = async (issue) => {
     store.commit("issues/setSelectedIssue", issue);
