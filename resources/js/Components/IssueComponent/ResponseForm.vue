@@ -42,9 +42,3 @@ const submitResponse = async () => {
 
 </script>
 
-<style scoped>
-button {
-    background-color: #046a5b;
-}
-
-</style>
